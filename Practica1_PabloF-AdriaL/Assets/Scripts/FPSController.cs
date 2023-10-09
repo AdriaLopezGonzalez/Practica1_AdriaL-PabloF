@@ -205,17 +205,17 @@ public class FPSController : MonoBehaviour
 
     void SetIdleWeaponAnimation()
     {
-        m_WeaponAnimation.CrossFade(m_IdleAnimationClip.name);
+        //m_WeaponAnimation.CrossFade(m_IdleAnimationClip.name);
 }
     void SetShootWeaponAnimation()
     {
-        m_WeaponAnimation.CrossFade(m_ShootAnimationClip.name, 0.1f);
-        m_WeaponAnimation.CrossFadeQueued(m_ShootAnimationClip.name, 0.1f);
+        //m_WeaponAnimation.CrossFade(m_ShootAnimationClip.name, 0.1f);
+        //m_WeaponAnimation.CrossFadeQueued(m_IdleAnimationClip.name, 0.1f);
     }
     void SetReloadWeaponAnimation()
     {
-        m_WeaponAnimation.CrossFade(m_ReloadAnimationClip.name, 0.1f);
-        m_WeaponAnimation.CrossFadeQueued(m_ReloadAnimationClip.name, 0.1f);
+        //m_WeaponAnimation.CrossFade(m_ReloadAnimationClip.name, 0.1f);
+        //m_WeaponAnimation.CrossFadeQueued(m_IdleAnimationClip.name, 0.1f);
     }
 
     public void RestartLevel()

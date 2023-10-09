@@ -222,7 +222,7 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 2147483647
-  m_HitParticlePrefab: {fileID: 0}
+  m_HitParticlePrefab: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
   m_LeftKeyCode: 97
   m_RightKeyCode: 100
   m_UpKeyCode: 119
