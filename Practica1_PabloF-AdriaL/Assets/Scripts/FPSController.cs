@@ -31,7 +31,13 @@ public class FPSController : MonoBehaviour
     [Header("Shoot")]
     public float m_MaxShootDistance;
     public LayerMask m_LayerMask;
+    public LayerMask m_LayerTargets;
     public GameObject m_HitParticlePrefab;
+
+    public float m_MaxAmmoOnWeapon;
+    float m_AmmoOnWeapon;
+    public float m_MaxAmmoToReload;
+    float m_AmmoToReload;
 
     [Header("Input")]
     public KeyCode m_LeftKeyCode = KeyCode.A;
@@ -72,6 +78,9 @@ public class FPSController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         SetIdleWeaponAnimation();
+
+        m_AmmoOnWeapon = m_MaxAmmoOnWeapon;
+        m_AmmoToReload = m_MaxAmmoToReload;
     }
 
     void Update()
@@ -168,24 +177,38 @@ public class FPSController : MonoBehaviour
 
     bool CanReload()
     {
-        Debug.Log("not yet implemented");
+        if (m_AmmoToReload <= 0)
+            return false;
         return true;
     }
 
     void Reload()
     {
-        Debug.Log("not yet implemented");
+        float l_BulletsToAdd = m_MaxAmmoOnWeapon - m_AmmoOnWeapon;
+
+        if(m_AmmoOnWeapon + m_AmmoToReload < m_MaxAmmoOnWeapon)
+            m_AmmoOnWeapon += m_AmmoToReload;
+        else
+            m_AmmoOnWeapon += l_BulletsToAdd;
+        
+        m_AmmoToReload -= l_BulletsToAdd;
+        if (m_AmmoToReload < 0)
+            m_AmmoToReload = 0;
+
         SetReloadWeaponAnimation();
     }
 
     bool CanShoot()
     {
-        Debug.Log("not yet implemented");
+        if (m_AmmoOnWeapon <= 0)
+            return false;
         return true;
     }
 
     void Shoot()
     {
+        m_AmmoOnWeapon -= 1;
+
         SetShootWeaponAnimation();
 
         Ray l_Ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
@@ -194,6 +217,11 @@ public class FPSController : MonoBehaviour
         {
             CreateShootHitParticles(l_RaycastHit.point, l_RaycastHit.normal);
         }
+
+        if (Physics.Raycast(l_Ray, out l_RaycastHit, m_MaxShootDistance, m_LayerTargets.value))
+        {
+            AddPoints();
+        }
     }
 
     void CreateShootHitParticles(Vector3 Position, Vector3 Normal)
@@ -201,6 +229,11 @@ public class FPSController : MonoBehaviour
         GameObject l_HitParticles = GameObject.Instantiate(m_HitParticlePrefab, GameController.GetGameController().m_DestroyObjects.transform);
         l_HitParticles.transform.position = Position;
         l_HitParticles.transform.rotation = Quaternion.LookRotation(Normal);
+    }
+
+    void AddPoints()
+    {
+        Debug.Log("not yet implemented the points");
     }
 
     void SetIdleWeaponAnimation()
@@ -243,13 +276,13 @@ public class FPSController : MonoBehaviour
 
     public bool CanPickAmmo()
     {
-        Debug.Log("not yet implemented");
+        Debug.Log("not yet implemented picking ammo");
         return true;
     }
 
     public void AddAmmo(int AmmoCount)
     {
-        Debug.Log("not yet implemented");
+        Debug.Log("not yet implemented adding ammo");
     }
 
     private void OnTriggerEnter(UnityEngine.Collider other)
