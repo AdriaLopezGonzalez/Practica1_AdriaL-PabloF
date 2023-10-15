@@ -24,6 +24,9 @@ public class FPSController : MonoBehaviour
     Quaternion m_StartRotation;
     public TMP_Text m_PointsShootingRange;
     float m_TargetHittedPoints;
+    float m_TimerCurrentTime = 0.0f;
+    public float m_TimerReloadTime;
+    bool m_IsReloading = false;
 
     [Header("Animation")]
     public Animation m_WeaponAnimation;
@@ -85,6 +88,8 @@ public class FPSController : MonoBehaviour
 
         m_AmmoOnWeapon = m_MaxAmmoOnWeapon;
         m_AmmoToReload = m_MaxAmmoToReload;
+
+        m_TimerCurrentTime = 0.0f;
     }
 
     void Update()
@@ -177,6 +182,18 @@ public class FPSController : MonoBehaviour
 
         if (Input.GetKeyDown(m_ReloadKeyCode) && CanReload())
             Reload();
+
+
+        if (m_IsReloading)
+        {
+            m_TimerCurrentTime += 1 * Time.deltaTime;
+
+            if(m_TimerCurrentTime >= m_TimerReloadTime)
+            {
+                m_TimerCurrentTime = 0.0f;
+                m_IsReloading = false;
+            }
+        }
     }
 
     bool CanReload()
@@ -188,6 +205,8 @@ public class FPSController : MonoBehaviour
 
     void Reload()
     {
+        m_IsReloading = true;
+
         float l_BulletsToAdd = m_MaxAmmoOnWeapon - m_AmmoOnWeapon;
 
         if(m_AmmoOnWeapon + m_AmmoToReload < m_MaxAmmoOnWeapon)
@@ -205,6 +224,9 @@ public class FPSController : MonoBehaviour
 
     bool CanShoot()
     {
+        if (m_IsReloading)
+            return false;
+
         if (m_AmmoOnWeapon <= 0)
             return false;
         return true;
@@ -251,17 +273,17 @@ public class FPSController : MonoBehaviour
 
     void SetIdleWeaponAnimation()
     {
-        //m_WeaponAnimation.CrossFade(m_IdleAnimationClip.name);
+        m_WeaponAnimation.CrossFade(m_IdleAnimationClip.name);
     }
     void SetShootWeaponAnimation()
     {
-        //m_WeaponAnimation.CrossFade(m_ShootAnimationClip.name, 0.1f);
-        //m_WeaponAnimation.CrossFadeQueued(m_IdleAnimationClip.name, 0.1f);
+        m_WeaponAnimation.CrossFade(m_ShootAnimationClip.name, 0.1f);
+        m_WeaponAnimation.CrossFadeQueued(m_IdleAnimationClip.name, 0.1f);
     }
     void SetReloadWeaponAnimation()
     {
-        //m_WeaponAnimation.CrossFade(m_ReloadAnimationClip.name, 0.1f);
-        //m_WeaponAnimation.CrossFadeQueued(m_IdleAnimationClip.name, 0.1f);
+        m_WeaponAnimation.CrossFade(m_ReloadAnimationClip.name, 0.1f);
+        m_WeaponAnimation.CrossFadeQueued(m_IdleAnimationClip.name, 0.1f);
     }
 
     public void RestartLevel()
