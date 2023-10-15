@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class FPSController : MonoBehaviour
@@ -38,6 +39,8 @@ public class FPSController : MonoBehaviour
     float m_AmmoOnWeapon;
     public float m_MaxAmmoToReload;
     float m_AmmoToReload;
+    public TextMeshPro m_AmmoInWeaponText;
+    public TextMeshPro m_TotalAmmoText;
 
     [Header("Input")]
     public KeyCode m_LeftKeyCode = KeyCode.A;
