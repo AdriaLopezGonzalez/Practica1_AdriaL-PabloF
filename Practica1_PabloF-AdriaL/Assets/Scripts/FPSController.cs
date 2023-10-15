@@ -22,6 +22,8 @@ public class FPSController : MonoBehaviour
     public Camera m_Camera;
     Vector3 m_StartPosition;
     Quaternion m_StartRotation;
+    public TMP_Text m_PointsShootingRange;
+    float m_TargetHittedPoints;
 
     [Header("Animation")]
     public Animation m_WeaponAnimation;
@@ -39,8 +41,7 @@ public class FPSController : MonoBehaviour
     float m_AmmoOnWeapon;
     public float m_MaxAmmoToReload;
     float m_AmmoToReload;
-    public TextMeshPro m_AmmoInWeaponText;
-    public TextMeshPro m_TotalAmmoText;
+    public TMP_Text m_AmmoText;
 
     [Header("Input")]
     public KeyCode m_LeftKeyCode = KeyCode.A;
@@ -198,6 +199,7 @@ public class FPSController : MonoBehaviour
         if (m_AmmoToReload < 0)
             m_AmmoToReload = 0;
 
+        UpdateAmmoText();
         SetReloadWeaponAnimation();
     }
 
@@ -211,6 +213,8 @@ public class FPSController : MonoBehaviour
     void Shoot()
     {
         m_AmmoOnWeapon -= 1;
+
+        UpdateAmmoText();
 
         SetShootWeaponAnimation();
 
@@ -227,6 +231,11 @@ public class FPSController : MonoBehaviour
         }
     }
 
+    void UpdateAmmoText()
+    {
+        m_AmmoText.text = m_AmmoOnWeapon.ToString() + "/" + m_AmmoToReload.ToString();
+    }
+
     void CreateShootHitParticles(Vector3 Position, Vector3 Normal)
     {
         GameObject l_HitParticles = GameObject.Instantiate(m_HitParticlePrefab, GameController.GetGameController().m_DestroyObjects.transform);
@@ -237,6 +246,7 @@ public class FPSController : MonoBehaviour
     void AddPoints()
     {
         Debug.Log("not yet implemented the points");
+        //m_PointsShootingRange.text = m_TargetHittedPoints.ToString();
     }
 
     void SetIdleWeaponAnimation()
