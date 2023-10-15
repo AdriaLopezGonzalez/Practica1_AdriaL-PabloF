@@ -341,6 +341,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 221545894677072978, guid: 0fc1a20fec65ead48a5c16fe8b3e75e3, type: 3}
+      propertyPath: m_Animations.Array.data[0]
+      value: 
+      objectReference: {fileID: 7400000, guid: 80f4b5afec0abdb44923fdf3c6fb00e3, type: 2}
+    - target: {fileID: 221545894677072978, guid: 0fc1a20fec65ead48a5c16fe8b3e75e3, type: 3}
+      propertyPath: m_Animations.Array.data[1]
+      value: 
+      objectReference: {fileID: 7400000, guid: 44beb3279e8bc544b81240fb4ebc3204, type: 2}
+    - target: {fileID: 221545894677072978, guid: 0fc1a20fec65ead48a5c16fe8b3e75e3, type: 3}
+      propertyPath: m_Animations.Array.data[2]
+      value: 
+      objectReference: {fileID: 7400000, guid: d088b4022c4248445bd57831e1e5ffaa, type: 2}
     - target: {fileID: 221545895241287176, guid: 0fc1a20fec65ead48a5c16fe8b3e75e3, type: 3}
       propertyPath: m_Name
       value: Player
@@ -389,9 +401,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 331489201083930892, guid: 0fc1a20fec65ead48a5c16fe8b3e75e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 331489201083930892, guid: 0fc1a20fec65ead48a5c16fe8b3e75e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 331489201083930892, guid: 0fc1a20fec65ead48a5c16fe8b3e75e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 221545895241287174, guid: 0fc1a20fec65ead48a5c16fe8b3e75e3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0fc1a20fec65ead48a5c16fe8b3e75e3, type: 3}
+--- !u!111 &166255159 stripped
+Animation:
+  m_CorrespondingSourceObject: {fileID: 221545894677072978, guid: 0fc1a20fec65ead48a5c16fe8b3e75e3, type: 3}
+  m_PrefabInstance: {fileID: 166255158}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &222918384
 GameObject:
   m_ObjectHideFlags: 0
@@ -947,10 +976,11 @@ MonoBehaviour:
   m_SprintSpeed: 20
   m_JumpSpeed: 5
   m_Camera: {fileID: 289439070}
-  m_WeaponAnimation: {fileID: 0}
-  m_IdleAnimationClip: {fileID: 0}
-  m_ShootAnimationClip: {fileID: 0}
-  m_ReloadAnimationClip: {fileID: 0}
+  m_PointsShootingRange: {fileID: 0}
+  m_WeaponAnimation: {fileID: 166255159}
+  m_IdleAnimationClip: {fileID: 7400000, guid: 80f4b5afec0abdb44923fdf3c6fb00e3, type: 2}
+  m_ShootAnimationClip: {fileID: 7400000, guid: d088b4022c4248445bd57831e1e5ffaa, type: 2}
+  m_ReloadAnimationClip: {fileID: 7400000, guid: 44beb3279e8bc544b81240fb4ebc3204, type: 2}
   m_MaxShootDistance: 60
   m_LayerMask:
     serializedVersion: 2
@@ -961,6 +991,7 @@ MonoBehaviour:
   m_HitParticlePrefab: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
   m_MaxAmmoOnWeapon: 30
   m_MaxAmmoToReload: 150
+  m_AmmoText: {fileID: 0}
   m_LeftKeyCode: 97
   m_RightKeyCode: 100
   m_UpKeyCode: 119
