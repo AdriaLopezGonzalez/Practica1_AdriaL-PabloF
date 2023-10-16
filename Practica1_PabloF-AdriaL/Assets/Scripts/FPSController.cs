@@ -27,6 +27,7 @@ public class FPSController : MonoBehaviour
     float m_TimerCurrentTime = 0.0f;
     public float m_TimerReloadTime;
     bool m_IsReloading = false;
+    bool m_InShootingRange = false;
 
     [Header("Animation")]
     public Animation m_WeaponAnimation;
@@ -247,9 +248,12 @@ public class FPSController : MonoBehaviour
             CreateShootHitParticles(l_RaycastHit.point, l_RaycastHit.normal);
         }
 
-        if (Physics.Raycast(l_Ray, out l_RaycastHit, m_MaxShootDistance, m_LayerTargets.value))
+        if (m_InShootingRange)
         {
-            AddPoints();
+            if (Physics.Raycast(l_Ray, out l_RaycastHit, m_MaxShootDistance, m_LayerTargets.value))
+            {
+                AddPoints();
+            }
         }
     }
 
@@ -327,6 +331,11 @@ public class FPSController : MonoBehaviour
             Item l_Item = other.GetComponent<Item>();
             if (l_Item.CanPick())
                 l_Item.Pick();
+        }
+
+        if(other.tag == "ShootingRange")
+        {
+            m_InShootingRange = true;
         }
     }
 }
