@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3688835946712429736}
   - component: {fileID: 8711492149578092131}
   m_Layer: 6
-  m_Name: lod0
+  m_Name: DeerTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
