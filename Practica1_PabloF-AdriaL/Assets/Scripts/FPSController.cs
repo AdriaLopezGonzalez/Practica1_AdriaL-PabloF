@@ -23,9 +23,11 @@ public class FPSController : MonoBehaviour
     Vector3 m_StartPosition;
     Quaternion m_StartRotation;
     public TMP_Text m_PointsShootingRange;
+    public TMP_Text m_TimeShootingRange;
     float m_TargetHittedPoints;
     float m_TimerCurrentTime = 0.0f;
     public float m_TimerReloadTime;
+    public float m_TimerShootingRange;
     bool m_IsReloading = false;
     bool m_InShootingRange = false;
 
@@ -89,8 +91,6 @@ public class FPSController : MonoBehaviour
 
         m_AmmoOnWeapon = m_MaxAmmoOnWeapon;
         m_AmmoToReload = m_MaxAmmoToReload;
-
-        m_TimerCurrentTime = 0.0f;
     }
 
     void Update()
@@ -193,6 +193,17 @@ public class FPSController : MonoBehaviour
             {
                 m_TimerCurrentTime = 0.0f;
                 m_IsReloading = false;
+            }
+        }
+
+        if (m_InShootingRange)
+        {
+            m_TimerCurrentTime += 1 * Time.deltaTime;
+
+            if(m_TimerCurrentTime >= m_TimerShootingRange || !m_InShootingRange)
+            {
+                m_TimerCurrentTime = 0.0f;
+
             }
         }
     }
@@ -336,6 +347,9 @@ public class FPSController : MonoBehaviour
         if(other.tag == "ShootingRange")
         {
             m_InShootingRange = true;
+
+            m_PointsShootingRange.gameObject.SetActive(true);
+            m_TimeShootingRange.gameObject.SetActive(true);
         }
     }
 }
