@@ -24,7 +24,7 @@ public class FPSController : MonoBehaviour
     Quaternion m_StartRotation;
     public TMP_Text m_PointsShootingRange;
     public TMP_Text m_TimeShootingRange;
-    float m_TargetHittedPoints;
+    int m_TargetHittedPoints;
     float m_TimerReloadingCurrentTime = 0.0f;
     float m_TimerCurrentTime = 0.0f;
     public float m_TimerReloadTime;
@@ -205,6 +205,7 @@ public class FPSController : MonoBehaviour
             {
                 m_TimerCurrentTime = 0.0f;
 
+                m_TargetHittedPoints = 0;
             }
         }
     }
