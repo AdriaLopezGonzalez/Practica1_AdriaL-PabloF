@@ -24,7 +24,7 @@ public class FPSController : MonoBehaviour
     Quaternion m_StartRotation;
     public TMP_Text m_PointsShootingRange;
     public TMP_Text m_TimeShootingRange;
-    int m_TargetHittedPoints;
+    float m_TargetHittedPoints;
     float m_TimerReloadingCurrentTime = 0.0f;
     float m_TimerCurrentTime = 0.0f;
     public float m_TimerReloadTime;
@@ -41,7 +41,7 @@ public class FPSController : MonoBehaviour
     [Header("Shoot")]
     public float m_MaxShootDistance;
     public LayerMask m_LayerMask;
-    public LayerMask m_LayerTargets;
+    public LayerMask m_LayerMaskTargets;
     public GameObject m_HitParticlePrefab;
 
     public float m_MaxAmmoOnWeapon;
@@ -203,9 +203,7 @@ public class FPSController : MonoBehaviour
 
             if(m_TimerCurrentTime >= m_TimerShootingRange || !m_InShootingRange)
             {
-                m_TimerCurrentTime = 0.0f;
-
-                m_TargetHittedPoints = 0;
+                RestartShootingRange();
             }
         }
     }
@@ -263,8 +261,9 @@ public class FPSController : MonoBehaviour
 
         if (m_InShootingRange)
         {
-            if (Physics.Raycast(l_Ray, out l_RaycastHit, m_MaxShootDistance, m_LayerTargets.value))
+            if (Physics.Raycast(l_Ray, out l_RaycastHit, m_MaxShootDistance, m_LayerMaskTargets.value))
             {
+                l_RaycastHit.transform.gameObject.GetComponent<Target>
                 AddPoints();
             }
         }
@@ -286,6 +285,12 @@ public class FPSController : MonoBehaviour
     {
         Debug.Log("not yet implemented the points");
         //m_PointsShootingRange.text = m_TargetHittedPoints.ToString();
+    }
+
+    void RestartShootingRange()
+    {
+        m_TimerCurrentTime = 0.0f;
+        m_TargetHittedPoints = 0;
     }
 
     void SetIdleWeaponAnimation()
