@@ -25,6 +25,7 @@ public class FPSController : MonoBehaviour
     public TMP_Text m_PointsShootingRange;
     public TMP_Text m_TimeShootingRange;
     float m_TargetHittedPoints;
+    float m_TimerReloadingCurrentTime = 0.0f;
     float m_TimerCurrentTime = 0.0f;
     public float m_TimerReloadTime;
     public float m_TimerShootingRange;
@@ -187,11 +188,11 @@ public class FPSController : MonoBehaviour
 
         if (m_IsReloading)
         {
-            m_TimerCurrentTime += 1 * Time.deltaTime;
+            m_TimerReloadingCurrentTime += 1 * Time.deltaTime;
 
-            if(m_TimerCurrentTime >= m_TimerReloadTime)
+            if(m_TimerReloadingCurrentTime >= m_TimerReloadTime)
             {
-                m_TimerCurrentTime = 0.0f;
+                m_TimerReloadingCurrentTime = 0.0f;
                 m_IsReloading = false;
             }
         }
