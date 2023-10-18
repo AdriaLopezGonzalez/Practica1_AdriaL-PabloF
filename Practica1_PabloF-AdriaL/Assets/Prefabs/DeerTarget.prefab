@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6921445301273725009}
   - component: {fileID: 3688835946712429736}
   - component: {fileID: 8711492149578092131}
+  - component: {fileID: -3357498260818368004}
   m_Layer: 6
   m_Name: DeerTarget
   m_TagString: Untagged
@@ -26,9 +27,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3102336600322752628}
-  m_LocalRotation: {x: -0.16622718, y: 0.6872907, z: 0.6872907, w: 0.16622718}
+  m_LocalRotation: {x: -0.16622865, y: 0.6872904, z: 0.6872904, w: 0.16622865}
   m_LocalPosition: {x: 29.71, y: 0.14376163, z: 134.96}
-  m_LocalScale: {x: 74.86387, y: 74.86387, z: 74.86387}
+  m_LocalScale: {x: 74.86388, y: 74.86388, z: 74.86388}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -98,3 +99,16 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 3048851310703494, guid: 87ddf1f3dcd40934ebb751bc8a72871a, type: 3}
+--- !u!114 &-3357498260818368004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3102336600322752628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6737fbd35ccb21546b65f03062fc2bf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetPoints: 100

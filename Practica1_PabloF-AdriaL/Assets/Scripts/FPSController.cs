@@ -22,9 +22,9 @@ public class FPSController : MonoBehaviour
     public Camera m_Camera;
     Vector3 m_StartPosition;
     Quaternion m_StartRotation;
-    public TMP_Text m_PointsShootingRange;
-    public TMP_Text m_TimeShootingRange;
-    float m_TargetHittedPoints;
+    public TMP_Text m_PointsShootingRangeText;
+    public TMP_Text m_TimeShootingRangeText;
+    float m_TotalTargetHittedPoints;
     float m_TimerReloadingCurrentTime = 0.0f;
     float m_TimerCurrentTime = 0.0f;
     public float m_TimerReloadTime;
@@ -201,6 +201,8 @@ public class FPSController : MonoBehaviour
         {
             m_TimerCurrentTime += 1 * Time.deltaTime;
 
+            m_TimeShootingRangeText.text = "Timer: " + (m_TimerShootingRange - m_TimerCurrentTime).ToString("0");
+
             if(m_TimerCurrentTime >= m_TimerShootingRange || !m_InShootingRange)
             {
                 RestartShootingRange();
@@ -263,8 +265,8 @@ public class FPSController : MonoBehaviour
         {
             if (Physics.Raycast(l_Ray, out l_RaycastHit, m_MaxShootDistance, m_LayerMaskTargets.value))
             {
-                l_RaycastHit.transform.gameObject.GetComponent<Target>
-                AddPoints();
+                float l_TargetPoints = l_RaycastHit.transform.gameObject.GetComponent<Target>().GetTargetPoints();
+                AddPoints(l_TargetPoints);
             }
         }
     }
@@ -281,16 +283,16 @@ public class FPSController : MonoBehaviour
         l_HitParticles.transform.rotation = Quaternion.LookRotation(Normal);
     }
 
-    void AddPoints()
+    void AddPoints(float targetPoints)
     {
-        Debug.Log("not yet implemented the points");
-        //m_PointsShootingRange.text = m_TargetHittedPoints.ToString();
+        m_TotalTargetHittedPoints += targetPoints;
+        m_PointsShootingRangeText.text = "Points: " + m_TotalTargetHittedPoints.ToString();
     }
 
     void RestartShootingRange()
     {
         m_TimerCurrentTime = 0.0f;
-        m_TargetHittedPoints = 0;
+        m_TotalTargetHittedPoints = 0;
     }
 
     void SetIdleWeaponAnimation()
@@ -355,8 +357,8 @@ public class FPSController : MonoBehaviour
         {
             m_InShootingRange = true;
 
-            m_PointsShootingRange.gameObject.SetActive(true);
-            m_TimeShootingRange.gameObject.SetActive(true);
+            m_PointsShootingRangeText.gameObject.SetActive(true);
+            m_TimeShootingRangeText.gameObject.SetActive(true);
         }
     }
 }

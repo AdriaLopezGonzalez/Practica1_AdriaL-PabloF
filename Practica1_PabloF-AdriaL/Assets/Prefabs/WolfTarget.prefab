@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1507536013227395048}
   - component: {fileID: 5176695833974602513}
   - component: {fileID: 865639064630739418}
+  - component: {fileID: 3237833606722076511}
   m_Layer: 6
   m_Name: WolfTarget
   m_TagString: Untagged
@@ -26,9 +27,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6911766915419393997}
-  m_LocalRotation: {x: -0.20129742, y: 0.6778491, z: 0.6778491, w: 0.20129742}
+  m_LocalRotation: {x: -0.20129658, y: 0.67784935, z: 0.67784935, w: 0.20129658}
   m_LocalPosition: {x: 18.034435, y: 0.08064556, z: 124.79546}
-  m_LocalScale: {x: 59.123985, y: 59.123985, z: 59.123985}
+  m_LocalScale: {x: 59.124035, y: 59.12401, z: 59.12401}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -98,3 +99,16 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6851752233551798572, guid: 71cc53828151f0f47b1f565539c71e50, type: 3}
+--- !u!114 &3237833606722076511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6911766915419393997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6737fbd35ccb21546b65f03062fc2bf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetPoints: 150

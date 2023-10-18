@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 614442762425783718}
   - component: {fileID: 6609728463655479647}
   - component: {fileID: 1184013833731150740}
+  - component: {fileID: 2441581724405555442}
   m_Layer: 6
   m_Name: BearTarget
   m_TagString: Untagged
@@ -26,9 +27,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4865768896925998467}
-  m_LocalRotation: {x: -0.20129742, y: 0.6778491, z: 0.6778491, w: 0.20129742}
+  m_LocalRotation: {x: -0.20129658, y: 0.67784935, z: 0.67784935, w: 0.20129658}
   m_LocalPosition: {x: 26.043213, y: 0.1560874, z: 130.62373}
-  m_LocalScale: {x: 90.5685, y: 90.5685, z: 90.5685}
+  m_LocalScale: {x: 90.568565, y: 90.568535, z: 90.56851}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -98,3 +99,16 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6593217175389860584, guid: db7c50145c907654f8aea9b86b8317a2, type: 3}
+--- !u!114 &2441581724405555442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4865768896925998467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6737fbd35ccb21546b65f03062fc2bf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetPoints: 50
