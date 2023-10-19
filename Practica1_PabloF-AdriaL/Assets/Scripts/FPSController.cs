@@ -31,6 +31,7 @@ public class FPSController : MonoBehaviour
     public float m_TimerShootingRange;
     bool m_IsReloading = false;
     bool m_InShootingRange = false;
+    public List<GameObject> m_TargetsShootingRange = new List<GameObject>(); 
 
     [Header("Animation")]
     public Animation m_WeaponAnimation;
@@ -359,6 +360,11 @@ public class FPSController : MonoBehaviour
 
             m_PointsShootingRangeText.gameObject.SetActive(true);
             m_TimeShootingRangeText.gameObject.SetActive(true);
+
+            foreach(GameObject l_target in m_TargetsShootingRange)
+            {
+                l_target.SetActive(true);
+            }
         }
     }
 }
