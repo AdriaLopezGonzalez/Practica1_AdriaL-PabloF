@@ -288,6 +288,16 @@ public class FPSController : MonoBehaviour
     {
         m_TotalTargetHittedPoints += targetPoints;
         m_PointsShootingRangeText.text = "Points: " + m_TotalTargetHittedPoints.ToString();
+
+        if(m_TotalTargetHittedPoints >= 1000)
+        {
+            NextLevelUnlocked();
+        }
+    }
+
+    void NextLevelUnlocked()
+    {
+        //DoorOpenerTrigger.SetActive(true);
     }
 
     void RestartShootingRange()
@@ -364,6 +374,22 @@ public class FPSController : MonoBehaviour
             foreach(GameObject l_target in m_TargetsShootingRange)
             {
                 l_target.SetActive(true);
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "ShootingRange")
+        {
+            m_InShootingRange = false;
+
+            m_PointsShootingRangeText.gameObject.SetActive(false);
+            m_TimeShootingRangeText.gameObject.SetActive(false);
+
+            foreach (GameObject l_target in m_TargetsShootingRange)
+            {
+                l_target.SetActive(false);
             }
         }
     }
