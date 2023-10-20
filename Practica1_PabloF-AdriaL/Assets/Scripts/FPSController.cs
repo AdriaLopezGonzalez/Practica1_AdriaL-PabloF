@@ -204,7 +204,7 @@ public class FPSController : MonoBehaviour
 
             m_TimeShootingRangeText.text = "Timer: " + (m_TimerShootingRange - m_TimerCurrentTime).ToString("0");
 
-            if(m_TimerCurrentTime >= m_TimerShootingRange || !m_InShootingRange)
+            if(m_TimerCurrentTime >= m_TimerShootingRange)
             {
                 RestartShootingRange();
             }
@@ -383,6 +383,7 @@ public class FPSController : MonoBehaviour
         if (other.tag == "ShootingRange")
         {
             m_InShootingRange = false;
+            RestartShootingRange();
 
             m_PointsShootingRangeText.gameObject.SetActive(false);
             m_TimeShootingRangeText.gameObject.SetActive(false);
