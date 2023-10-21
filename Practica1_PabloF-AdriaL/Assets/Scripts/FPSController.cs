@@ -21,12 +21,12 @@ public class FPSController : MonoBehaviour
     public Camera m_Camera;
     Vector3 m_StartPosition;
     Quaternion m_StartRotation;
+
+    [Header("ShootingGallery")]
     public TMP_Text m_PointsShootingRangeText;
     public TMP_Text m_TimeShootingRangeText;
     float m_TotalTargetHittedPoints;
-    float m_TimerReloadingCurrentTime = 0.0f;
     float m_TimerCurrentTime = 0.0f;
-    public float m_TimerReloadTime;
     public float m_TimerShootingRange;
     bool m_IsReloading = false;
     bool m_InShootingRange = false;
@@ -40,6 +40,14 @@ public class FPSController : MonoBehaviour
     public AnimationClip m_ShootAnimationClip;
     public AnimationClip m_ReloadAnimationClip;
 
+    [Header("Heal/Shield")]
+    public float m_MaxHealth = 100.0f;
+    float m_Health;
+    public float m_MaxShield = 100.0f;
+    float m_Shield;
+    public TMP_Text m_HealthText;
+    public TMP_Text m_ShieldText;
+
     [Header("Shoot")]
     public float m_MaxShootDistance;
     public LayerMask m_LayerMask;
@@ -51,6 +59,8 @@ public class FPSController : MonoBehaviour
     public float m_MaxAmmoToReload;
     float m_AmmoToReload;
     public TMP_Text m_AmmoText;
+    float m_TimerReloadingCurrentTime = 0.0f;
+    public float m_TimerReloadTime;
 
     [Header("Input")]
     public KeyCode m_LeftKeyCode = KeyCode.A;
@@ -96,6 +106,8 @@ public class FPSController : MonoBehaviour
 
         m_AmmoOnWeapon = m_MaxAmmoOnWeapon;
         m_AmmoToReload = m_MaxAmmoToReload;
+        m_Health = m_MaxHealth;
+        m_Shield = m_MaxShield;
     }
 
     void Update()
@@ -358,6 +370,27 @@ public class FPSController : MonoBehaviour
     {
         m_TimerCurrentTime = 0.0f;
         m_TotalTargetHittedPoints = 0;
+    }
+
+    public void DamageRecieved(float _DamageDealt)
+    {
+        if(m_Shield <= 0.0f)
+        {
+            m_Shield = 0.0f;
+            m_Health -= _DamageDealt;
+        }
+        else
+        {
+            m_Health -= (_DamageDealt * 25.0f) / 100.0f;
+            m_Shield -= (_DamageDealt * 75.0f) / 100.0f;
+        }
+
+        if(m_Health <= 0.0f)
+        {
+            m_Health = 0.0f;
+
+            //Implementar pantalla de derrota
+        }
     }
 
     void SetIdleWeaponAnimation()
