@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -31,7 +30,9 @@ public class FPSController : MonoBehaviour
     public float m_TimerShootingRange;
     bool m_IsReloading = false;
     bool m_InShootingRange = false;
-    public List<GameObject> m_TargetsShootingRange = new List<GameObject>(); 
+    public List<GameObject> m_TargetsShootingRange = new List<GameObject>();
+    public GameObject m_StartingSign;
+    public GameObject m_ShootingCompletedSign;
 
     [Header("Animation")]
     public Animation m_WeaponAnimation;
@@ -58,6 +59,8 @@ public class FPSController : MonoBehaviour
     public KeyCode m_DownKeyCode = KeyCode.S;
     public KeyCode m_JumpKeyCode = KeyCode.Space;
     public KeyCode m_SprintKeyCode = KeyCode.LeftShift;
+    public KeyCode m_EnterKeyCode = KeyCode.Return;
+    public KeyCode m_RestartKeyCode = KeyCode.T;
 
     [Header("Input")]
     public KeyCode m_ReloadKeyCode = KeyCode.R;
@@ -98,12 +101,12 @@ public class FPSController : MonoBehaviour
     void Update()
     {
 #if UNITY_EDITOR
-        if(Input.GetKeyDown(m_DebugLockAngleKeyCode))
-            m_AngleLocked=!m_AngleLocked;
-            
-        if(Input.GetKeyDown(m_DebugLockKeyCode))
+        if (Input.GetKeyDown(m_DebugLockAngleKeyCode))
+            m_AngleLocked = !m_AngleLocked;
+
+        if (Input.GetKeyDown(m_DebugLockKeyCode))
         {
-            if(Cursor.lockState == CursorLockMode.Locked)
+            if (Cursor.lockState == CursorLockMode.Locked)
                 Cursor.lockState = CursorLockMode.None;
             else
                 Cursor.lockState = CursorLockMode.Locked;
@@ -146,9 +149,9 @@ public class FPSController : MonoBehaviour
 
         Vector3 l_Movement = Vector3.zero;
 
-        if(Input.GetKey(m_LeftKeyCode))
+        if (Input.GetKey(m_LeftKeyCode))
             l_Movement = -l_Right;
-        else if(Input.GetKey(m_RightKeyCode))
+        else if (Input.GetKey(m_RightKeyCode))
             l_Movement = l_Right;
 
         if (Input.GetKey(m_DownKeyCode))
@@ -176,7 +179,7 @@ public class FPSController : MonoBehaviour
             m_VerticalSpeed = 0.0f;
             //m_LastTimeOnFloor = 0.0f;
         }
-            
+
         if ((l_CollisionFlags & CollisionFlags.CollidedAbove) != 0 && m_VerticalSpeed > 0.0f)
             m_VerticalSpeed = 0.0f;
 
@@ -191,7 +194,7 @@ public class FPSController : MonoBehaviour
         {
             m_TimerReloadingCurrentTime += 1 * Time.deltaTime;
 
-            if(m_TimerReloadingCurrentTime >= m_TimerReloadTime)
+            if (m_TimerReloadingCurrentTime >= m_TimerReloadTime)
             {
                 m_TimerReloadingCurrentTime = 0.0f;
                 m_IsReloading = false;
@@ -203,10 +206,30 @@ public class FPSController : MonoBehaviour
             m_TimerCurrentTime += 1 * Time.deltaTime;
 
             m_TimeShootingRangeText.text = "Timer: " + (m_TimerShootingRange - m_TimerCurrentTime).ToString("0");
+            m_PointsShootingRangeText.text = "Points: " + m_TotalTargetHittedPoints.ToString();
 
-            if(m_TimerCurrentTime >= m_TimerShootingRange)
+            if (m_TimerCurrentTime >= m_TimerShootingRange)
             {
                 RestartShootingRange();
+            }
+        }
+
+        if(m_StartingSign.activeSelf == true)
+        {
+            if(Input.GetKeyDown(m_EnterKeyCode))
+                StartingShootingRange();
+        }
+
+        if (m_ShootingCompletedSign.activeSelf == true)
+        {
+            if (Input.GetKeyDown(m_RestartKeyCode))
+            {
+                m_ShootingCompletedSign.SetActive(false);
+                StartingShootingRange();
+            }
+            else if (Input.GetKeyDown(m_EnterKeyCode))
+            {
+                NextLevelUnlocked();
             }
         }
     }
@@ -224,11 +247,11 @@ public class FPSController : MonoBehaviour
 
         float l_BulletsToAdd = m_MaxAmmoOnWeapon - m_AmmoOnWeapon;
 
-        if(m_AmmoOnWeapon + m_AmmoToReload < m_MaxAmmoOnWeapon)
+        if (m_AmmoOnWeapon + m_AmmoToReload < m_MaxAmmoOnWeapon)
             m_AmmoOnWeapon += m_AmmoToReload;
         else
             m_AmmoOnWeapon += l_BulletsToAdd;
-        
+
         m_AmmoToReload -= l_BulletsToAdd;
         if (m_AmmoToReload < 0)
             m_AmmoToReload = 0;
@@ -257,7 +280,7 @@ public class FPSController : MonoBehaviour
 
         Ray l_Ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
         RaycastHit l_RaycastHit;
-        if(Physics.Raycast(l_Ray, out l_RaycastHit, m_MaxShootDistance, m_LayerMask.value))
+        if (Physics.Raycast(l_Ray, out l_RaycastHit, m_MaxShootDistance, m_LayerMask.value))
         {
             CreateShootHitParticles(l_RaycastHit.point, l_RaycastHit.normal);
         }
@@ -284,19 +307,50 @@ public class FPSController : MonoBehaviour
         l_HitParticles.transform.rotation = Quaternion.LookRotation(Normal);
     }
 
+    void StartingShootingRange()
+    {
+        RestartShootingRange();
+
+        m_InShootingRange = true;
+
+        m_PointsShootingRangeText.gameObject.SetActive(true);
+        m_TimeShootingRangeText.gameObject.SetActive(true);
+
+        foreach (GameObject l_target in m_TargetsShootingRange)
+        {
+            l_target.SetActive(true);
+        }
+
+        m_StartingSign.SetActive(false);
+        Time.timeScale = 1;
+    }
+
     void AddPoints(float targetPoints)
     {
         m_TotalTargetHittedPoints += targetPoints;
-        m_PointsShootingRangeText.text = "Points: " + m_TotalTargetHittedPoints.ToString();
 
-        if(m_TotalTargetHittedPoints >= 1000)
+        if (m_TotalTargetHittedPoints >= 1000)
         {
-            NextLevelUnlocked();
+            m_ShootingCompletedSign.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 
     void NextLevelUnlocked()
     {
+        m_InShootingRange = false;
+
+        m_PointsShootingRangeText.gameObject.SetActive(false);
+        m_TimeShootingRangeText.gameObject.SetActive(false);
+
+        foreach (GameObject l_target in m_TargetsShootingRange)
+        {
+            l_target.SetActive(false);
+        }
+
+        m_ShootingCompletedSign.SetActive(false);
+        Time.timeScale = 1;
+
         //DoorOpenerTrigger.SetActive(true);
     }
 
@@ -364,17 +418,10 @@ public class FPSController : MonoBehaviour
                 l_Item.Pick();
         }
 
-        if(other.tag == "ShootingRange")
+        if (other.tag == "ShootingRange")
         {
-            m_InShootingRange = true;
-
-            m_PointsShootingRangeText.gameObject.SetActive(true);
-            m_TimeShootingRangeText.gameObject.SetActive(true);
-
-            foreach(GameObject l_target in m_TargetsShootingRange)
-            {
-                l_target.SetActive(true);
-            }
+            m_StartingSign.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 
