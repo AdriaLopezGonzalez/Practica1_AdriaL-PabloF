@@ -500,6 +500,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 475418, guid: 1acd03bc537c24f3484ab4d6f07b9e02, type: 3}
   m_PrefabInstance: {fileID: 143900764}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &149608053
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 149608055}
+  - component: {fileID: 149608054}
+  m_Layer: 0
+  m_Name: NextLevelTrigger
+  m_TagString: EndLevel
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &149608054
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149608053}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.2337112, y: 2.5377765, z: 4.2892685}
+  m_Center: {x: -1.6168556, y: 0.76888824, z: 0.16604233}
+--- !u!4 &149608055
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149608053}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 49.670444, y: 0.2486283, z: 123.34862}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &166255158
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1264,7 +1309,7 @@ MonoBehaviour:
   m_StartingSign: {fileID: 93656433}
   m_ShootingCompletedSign: {fileID: 1824444596}
   m_DoorOpenerTrigger: {fileID: 697141617}
-  m_GoToNextLevelTrigger: {fileID: 0}
+  m_GoToNextLevelTrigger: {fileID: 149608053}
   m_WeaponAnimation: {fileID: 166255159}
   m_IdleAnimationClip: {fileID: 7400000, guid: 80f4b5afec0abdb44923fdf3c6fb00e3, type: 2}
   m_ShootAnimationClip: {fileID: 7400000, guid: d088b4022c4248445bd57831e1e5ffaa, type: 2}
