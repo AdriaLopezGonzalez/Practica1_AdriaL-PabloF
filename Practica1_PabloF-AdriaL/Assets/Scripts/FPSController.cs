@@ -458,16 +458,19 @@ public class FPSController : MonoBehaviour
                 l_Item.Pick();
         }
 
-        if (other.tag == "ShootingRange")
+        if (SceneManager.GetActiveScene().name == "Level1_Scene")
         {
-            m_StartingSign.SetActive(true);
-            Time.timeScale = 0;
-        }
+            if (other.tag == "ShootingRange")
+            {
+                m_StartingSign.SetActive(true);
+                Time.timeScale = 0;
+            }
 
-        if(other.tag == m_GoToNextLevelTrigger.tag)
-        {
-            GameController.GetGameController().GoToLevel2();
-        }
+            if (other.tag == m_GoToNextLevelTrigger.tag)
+            {
+                GameController.GetGameController().GoToLevel2();
+            }
+        } 
     }
 
     private void OnTriggerExit(Collider other)
