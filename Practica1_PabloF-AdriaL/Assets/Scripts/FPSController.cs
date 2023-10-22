@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FPSController : MonoBehaviour
 {
@@ -216,35 +217,38 @@ public class FPSController : MonoBehaviour
             }
         }
 
-        if (m_InShootingRange)
+        if(SceneManager.GetActiveScene().name == "Level1_Scene")
         {
-            m_TimerCurrentTime += 1 * Time.deltaTime;
-
-            m_TimeShootingRangeText.text = "Timer: " + (m_TimerShootingRange - m_TimerCurrentTime).ToString("0");
-            m_PointsShootingRangeText.text = "Points: " + m_TotalTargetHittedPoints.ToString();
-
-            if (m_TimerCurrentTime >= m_TimerShootingRange)
+            if (m_InShootingRange)
             {
-                RestartShootingRange();
+                m_TimerCurrentTime += 1 * Time.deltaTime;
+
+                m_TimeShootingRangeText.text = "Timer: " + (m_TimerShootingRange - m_TimerCurrentTime).ToString("0");
+                m_PointsShootingRangeText.text = "Points: " + m_TotalTargetHittedPoints.ToString();
+
+                if (m_TimerCurrentTime >= m_TimerShootingRange)
+                {
+                    RestartShootingRange();
+                }
             }
-        }
 
-        if(m_StartingSign.activeSelf == true)
-        {
-            if(Input.GetKeyDown(m_EnterKeyCode))
-                StartingShootingRange();
-        }
-
-        if (m_ShootingCompletedSign.activeSelf == true)
-        {
-            if (Input.GetKeyDown(m_RestartKeyCode))
+            if (m_StartingSign.activeSelf == true)
             {
-                m_ShootingCompletedSign.SetActive(false);
-                StartingShootingRange();
+                if (Input.GetKeyDown(m_EnterKeyCode))
+                    StartingShootingRange();
             }
-            else if (Input.GetKeyDown(m_EnterKeyCode))
+
+            if (m_ShootingCompletedSign.activeSelf == true)
             {
-                NextLevelUnlocked();
+                if (Input.GetKeyDown(m_RestartKeyCode))
+                {
+                    m_ShootingCompletedSign.SetActive(false);
+                    StartingShootingRange();
+                }
+                else if (Input.GetKeyDown(m_EnterKeyCode))
+                {
+                    NextLevelUnlocked();
+                }
             }
         }
     }
