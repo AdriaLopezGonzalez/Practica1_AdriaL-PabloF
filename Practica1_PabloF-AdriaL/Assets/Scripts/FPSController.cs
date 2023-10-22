@@ -34,6 +34,9 @@ public class FPSController : MonoBehaviour
     public GameObject m_StartingSign;
     public GameObject m_ShootingCompletedSign;
 
+    public GameObject m_DoorOpenerTrigger;
+    public GameObject m_GoToNextLevelTrigger;
+
     [Header("Animation")]
     public Animation m_WeaponAnimation;
     public AnimationClip m_IdleAnimationClip;
@@ -363,7 +366,7 @@ public class FPSController : MonoBehaviour
         m_ShootingCompletedSign.SetActive(false);
         Time.timeScale = 1;
 
-        //DoorOpenerTrigger.SetActive(true);
+        m_DoorOpenerTrigger.SetActive(true);
     }
 
     void RestartShootingRange()
@@ -455,6 +458,11 @@ public class FPSController : MonoBehaviour
         {
             m_StartingSign.SetActive(true);
             Time.timeScale = 0;
+        }
+
+        if(other.tag == m_GoToNextLevelTrigger.tag)
+        {
+            GameController.GetGameController().GoToLevel2();
         }
     }
 

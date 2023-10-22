@@ -52,13 +52,13 @@ public class GameController : MonoBehaviour
     public void GoToLevel1()
     {
         DestroyLevelObjects();
-        SceneManager.LoadSceneAsync("Level1Scene");
+        SceneManager.LoadSceneAsync("Level1_Scene");
     }
 
     public void GoToLevel2()
     {
         DestroyLevelObjects();
-        SceneManager.LoadSceneAsync("Level2Scene");
+        SceneManager.LoadSceneAsync("Level2_Scene");
     }
 
 
