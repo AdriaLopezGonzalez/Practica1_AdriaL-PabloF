@@ -460,10 +460,10 @@ public class FPSController : MonoBehaviour
             Time.timeScale = 0;
         }
 
-        if(other.tag == m_GoToNextLevelTrigger.tag)
-        {
-            GameController.GetGameController().GoToLevel2();
-        }
+        //if(other.tag == m_GoToNextLevelTrigger.tag)
+        //{
+        //    GameController.GetGameController().GoToLevel2();
+        //}
     }
 
     private void OnTriggerExit(Collider other)
