@@ -362,6 +362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 149608055}
   - component: {fileID: 149608054}
+  - component: {fileID: 149608056}
   m_Layer: 0
   m_Name: NextLevelTrigger
   m_TagString: EndLevel
@@ -397,6 +398,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &149608056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149608053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c03b29607876b04f900b81b24e11d78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CanvasGroup: {fileID: 533889397}
+  m_FadeOut: 0
+  m_TimeToFade: 2
 --- !u!224 &246770245 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2369336479160420593, guid: 6ede6461cc455104dbb5eb4b9c6b1db4, type: 3}
