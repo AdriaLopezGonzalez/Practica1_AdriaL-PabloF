@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -22,6 +23,7 @@ public class FPSController : MonoBehaviour
     public Camera m_Camera;
     Vector3 m_StartPosition;
     Quaternion m_StartRotation;
+    bool m_InputsNotActive = false;
 
     [Header("ShootingGallery")]
     public TMP_Text m_PointsShootingRangeText;
@@ -131,89 +133,92 @@ public class FPSController : MonoBehaviour
         }
 #endif
 
-        float l_HorizontalMovement = Input.GetAxis("Mouse X");
-        float l_VerticalMovement = Input.GetAxis("Mouse Y");
-
-        if (m_AngleLocked)
+        if (!m_InputsNotActive)
         {
-            l_HorizontalMovement = 0.0f;
-            l_VerticalMovement = 0.0f;
-        }
+            float l_HorizontalMovement = Input.GetAxis("Mouse X");
+            float l_VerticalMovement = Input.GetAxis("Mouse Y");
 
-        float l_Speed = m_Speed;
-
-        if (Input.GetKeyDown(m_JumpKeyCode) && m_VerticalSpeed == 0.0f)
-            m_VerticalSpeed = m_JumpSpeed;
-
-        if (Input.GetKey(m_SprintKeyCode))
-            l_Speed = m_SprintSpeed;
-
-        //float l_YawInverted = 1.0f;
-        //float l_PitchInverted = 1.0f;
-        //if(m_YawInverted)
-        //    l_YawInverted = -1.0f;
-        //if (m_PitchInverted)
-        //    l_PitchInverted = -1.0f;
-        float l_YawInverted = m_YawInverted ? -1.0f : 1.0f;
-        float l_PitchInverted = m_PitchInverted ? -1.0f : 1.0f;
-
-        float l_YawInRadians = m_Yaw * Mathf.Deg2Rad;
-        float l_Yaw90InRadians = (m_Yaw + 90.0f) * Mathf.Deg2Rad;
-
-        Vector3 l_Forward = new Vector3(Mathf.Sin(l_YawInRadians), 0.0f, Mathf.Cos(l_YawInRadians));
-        Vector3 l_Right = new Vector3(Mathf.Sin(l_Yaw90InRadians), 0.0f, Mathf.Cos(l_Yaw90InRadians));
-
-        Vector3 l_Movement = Vector3.zero;
-
-        if (Input.GetKey(m_LeftKeyCode))
-            l_Movement = -l_Right;
-        else if (Input.GetKey(m_RightKeyCode))
-            l_Movement = l_Right;
-
-        if (Input.GetKey(m_DownKeyCode))
-            l_Movement -= l_Forward;
-        else if (Input.GetKey(m_UpKeyCode))
-            l_Movement += l_Forward;
-
-        l_Movement.Normalize();
-        l_Movement *= l_Speed * Time.deltaTime;
-
-        m_Yaw = m_Yaw + m_YawSpeed * l_HorizontalMovement * Time.deltaTime * l_YawInverted;
-        m_Pitch = m_Pitch + m_PitchSpeed * l_VerticalMovement * Time.deltaTime * l_PitchInverted;
-
-        m_Pitch = Mathf.Clamp(m_Pitch, m_MinPitch, m_MaxPitch);
-
-        transform.rotation = Quaternion.Euler(0.0f, m_Yaw, 0.0f);
-        m_PitchController.localRotation = Quaternion.Euler(m_Pitch, 0.0f, 0.0f);
-
-        m_VerticalSpeed = m_VerticalSpeed + Physics.gravity.y * Time.deltaTime;
-        l_Movement.y = m_VerticalSpeed * Time.deltaTime;
-
-        CollisionFlags l_CollisionFlags = m_CharacterController.Move(l_Movement);
-        if ((l_CollisionFlags & CollisionFlags.CollidedBelow) != 0 && m_VerticalSpeed < 0.0f)
-        {
-            m_VerticalSpeed = 0.0f;
-            //m_LastTimeOnFloor = 0.0f;
-        }
-
-        if ((l_CollisionFlags & CollisionFlags.CollidedAbove) != 0 && m_VerticalSpeed > 0.0f)
-            m_VerticalSpeed = 0.0f;
-
-        if (Input.GetMouseButtonDown(m_ShootMouseButton) && CanShoot())
-            Shoot();
-
-        if (Input.GetKeyDown(m_ReloadKeyCode) && CanReload())
-            Reload();
-
-
-        if (m_IsReloading)
-        {
-            m_TimerReloadingCurrentTime += 1 * Time.deltaTime;
-
-            if (m_TimerReloadingCurrentTime >= m_TimerReloadTime)
+            if (m_AngleLocked)
             {
-                m_TimerReloadingCurrentTime = 0.0f;
-                m_IsReloading = false;
+                l_HorizontalMovement = 0.0f;
+                l_VerticalMovement = 0.0f;
+            }
+
+            float l_Speed = m_Speed;
+
+            if (Input.GetKeyDown(m_JumpKeyCode) && m_VerticalSpeed == 0.0f)
+                m_VerticalSpeed = m_JumpSpeed;
+
+            if (Input.GetKey(m_SprintKeyCode))
+                l_Speed = m_SprintSpeed;
+
+            //float l_YawInverted = 1.0f;
+            //float l_PitchInverted = 1.0f;
+            //if(m_YawInverted)
+            //    l_YawInverted = -1.0f;
+            //if (m_PitchInverted)
+            //    l_PitchInverted = -1.0f;
+            float l_YawInverted = m_YawInverted ? -1.0f : 1.0f;
+            float l_PitchInverted = m_PitchInverted ? -1.0f : 1.0f;
+
+            float l_YawInRadians = m_Yaw * Mathf.Deg2Rad;
+            float l_Yaw90InRadians = (m_Yaw + 90.0f) * Mathf.Deg2Rad;
+
+            Vector3 l_Forward = new Vector3(Mathf.Sin(l_YawInRadians), 0.0f, Mathf.Cos(l_YawInRadians));
+            Vector3 l_Right = new Vector3(Mathf.Sin(l_Yaw90InRadians), 0.0f, Mathf.Cos(l_Yaw90InRadians));
+
+            Vector3 l_Movement = Vector3.zero;
+
+            if (Input.GetKey(m_LeftKeyCode))
+                l_Movement = -l_Right;
+            else if (Input.GetKey(m_RightKeyCode))
+                l_Movement = l_Right;
+
+            if (Input.GetKey(m_DownKeyCode))
+                l_Movement -= l_Forward;
+            else if (Input.GetKey(m_UpKeyCode))
+                l_Movement += l_Forward;
+
+            l_Movement.Normalize();
+            l_Movement *= l_Speed * Time.deltaTime;
+
+            m_Yaw = m_Yaw + m_YawSpeed * l_HorizontalMovement * Time.deltaTime * l_YawInverted;
+            m_Pitch = m_Pitch + m_PitchSpeed * l_VerticalMovement * Time.deltaTime * l_PitchInverted;
+
+            m_Pitch = Mathf.Clamp(m_Pitch, m_MinPitch, m_MaxPitch);
+
+            transform.rotation = Quaternion.Euler(0.0f, m_Yaw, 0.0f);
+            m_PitchController.localRotation = Quaternion.Euler(m_Pitch, 0.0f, 0.0f);
+
+            m_VerticalSpeed = m_VerticalSpeed + Physics.gravity.y * Time.deltaTime;
+            l_Movement.y = m_VerticalSpeed * Time.deltaTime;
+
+            CollisionFlags l_CollisionFlags = m_CharacterController.Move(l_Movement);
+            if ((l_CollisionFlags & CollisionFlags.CollidedBelow) != 0 && m_VerticalSpeed < 0.0f)
+            {
+                m_VerticalSpeed = 0.0f;
+                //m_LastTimeOnFloor = 0.0f;
+            }
+
+            if ((l_CollisionFlags & CollisionFlags.CollidedAbove) != 0 && m_VerticalSpeed > 0.0f)
+                m_VerticalSpeed = 0.0f;
+
+            if (Input.GetMouseButtonDown(m_ShootMouseButton) && CanShoot())
+                Shoot();
+
+            if (Input.GetKeyDown(m_ReloadKeyCode) && CanReload())
+                Reload();
+
+
+            if (m_IsReloading)
+            {
+                m_TimerReloadingCurrentTime += 1 * Time.deltaTime;
+
+                if (m_TimerReloadingCurrentTime >= m_TimerReloadTime)
+                {
+                    m_TimerReloadingCurrentTime = 0.0f;
+                    m_IsReloading = false;
+                }
             }
         }
 
@@ -342,6 +347,7 @@ public class FPSController : MonoBehaviour
 
         m_StartingSign.SetActive(false);
         Time.timeScale = 1;
+        m_InputsNotActive = false;
     }
 
     void AddPoints(float targetPoints)
@@ -352,6 +358,7 @@ public class FPSController : MonoBehaviour
         {
             m_ShootingCompletedSign.SetActive(true);
             Time.timeScale = 0;
+            m_InputsNotActive = true;
         }
     }
 
@@ -369,6 +376,7 @@ public class FPSController : MonoBehaviour
 
         m_ShootingCompletedSign.SetActive(false);
         Time.timeScale = 1;
+        m_InputsNotActive = false;
 
         m_DoorOpenerTrigger.SetActive(true);
     }
@@ -464,11 +472,14 @@ public class FPSController : MonoBehaviour
             {
                 m_StartingSign.SetActive(true);
                 Time.timeScale = 0;
+                m_InputsNotActive = true;
             }
 
             if (other.tag == m_GoToNextLevelTrigger.tag)
             {
-                GameController.GetGameController().GoToLevel2();
+                m_InputsNotActive = true;
+                StartCoroutine(ChangeScene());
+                //GameController.GetGameController().GoToLevel2();
             }
         } 
     }
@@ -488,5 +499,12 @@ public class FPSController : MonoBehaviour
                 l_target.SetActive(false);
             }
         }
+    }
+    IEnumerator ChangeScene()
+    {
+        FindObjectOfType<FadeOut>().FadeingOut();
+        yield return new WaitForSeconds(2f);
+        GameController.GetGameController().GoToLevel2();
+        m_InputsNotActive = false;
     }
 }
