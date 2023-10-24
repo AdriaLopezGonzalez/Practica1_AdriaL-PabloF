@@ -306,7 +306,12 @@ public class FPSController : MonoBehaviour
         RaycastHit l_RaycastHit;
         if (Physics.Raycast(l_Ray, out l_RaycastHit, m_MaxShootDistance, m_LayerMask.value))
         {
-            CreateShootHitParticles(l_RaycastHit.point, l_RaycastHit.normal);
+            if (l_RaycastHit.collider.tag == "Enemy")
+            {
+                l_RaycastHit.collider.GetComponent<HitCollider>().Hit();
+            }
+            else
+                CreateShootHitParticles(l_RaycastHit.point, l_RaycastHit.normal);
         }
 
         if (m_InShootingRange)
