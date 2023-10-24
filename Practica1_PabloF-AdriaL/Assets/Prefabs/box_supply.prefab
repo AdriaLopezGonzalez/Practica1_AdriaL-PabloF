@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04c79e52f2ddb084c9391ee2b888d236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ArmorCount: 100
+  m_ShieldCount: 50
 --- !u!65 &3878743916112649092
 BoxCollider:
   m_ObjectHideFlags: 0
