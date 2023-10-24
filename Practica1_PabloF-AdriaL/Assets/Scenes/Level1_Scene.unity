@@ -2113,6 +2113,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: box_ammo (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6189947279139203002, guid: bba7dbbf21c93bb4f9eecb96db4dfb3f, type: 3}
+      propertyPath: m_AmmoCount
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bba7dbbf21c93bb4f9eecb96db4dfb3f, type: 3}
 --- !u!1 &835063491
