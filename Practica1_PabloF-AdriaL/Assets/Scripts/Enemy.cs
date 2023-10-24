@@ -30,11 +30,21 @@ public class Enemy : MonoBehaviour
     public int m_MaxLife = 100;
     Vector3 m_StartPosition;
     Quaternion m_StartRotation;
+    public float m_MaxDistanceToShoot;
 
     [Header("LifeBar")]
     public Transform m_LifeBarAnchor;
     public RectTransform m_LifeBarBackgroundRectTransform;
     public Image m_LifeBarImage;
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, m_HearsPlayerRadius);
+        Gizmos.DrawWireSphere(transform.position, m_MaxDistanceToSeePlayer);
+        Gizmos.DrawWireSphere(transform.position, m_MinDistanceToAttack);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, m_MaxDistanceToShoot);
+    }
 
     private void Awake()
     {
