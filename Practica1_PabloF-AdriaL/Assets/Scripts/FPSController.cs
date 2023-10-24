@@ -449,34 +449,52 @@ public class FPSController : MonoBehaviour
     public bool CanPickAmmo()
     {
         Debug.Log("not yet implemented picking ammo");
-        return true;
+        if (m_AmmoToReload < m_MaxAmmoToReload)
+        {
+            AddAmmo(90);
+            return true;
+        }
+        return false;
     }
 
     public void AddAmmo(int AmmoCount)
     {
         Debug.Log("not yet implemented adding ammo");
+        m_AmmoToReload += AmmoCount;
     }
 
     public bool CanPickHealth()
     {
         Debug.Log("not yet implemented picking health");
-        return true;
+        if (m_Health < m_MaxHealth)
+        {
+            AddHealth(100);
+            return true;
+        }
+        return false;
     }
 
     public void AddHealth(int HealthCount)
     {
         Debug.Log("not yet implemented adding health");
+        m_Health += HealthCount;
     }
 
-    public bool CanPickArmor()
+    public bool CanPickShield()
     {
         Debug.Log("not yet implemented picking armor");
-        return true;
+        if (m_Shield < m_MaxShield)
+        {
+            AddShield(100);
+            return true;
+        }
+        return false;
     }
 
-    public void AddArmor(int ArmorCount)
+    public void AddShield(int ShieldCount)
     {
         Debug.Log("not yet implemented adding armor");
+        m_Shield += ShieldCount;
     }
 
     private void OnTriggerEnter(UnityEngine.Collider other)
