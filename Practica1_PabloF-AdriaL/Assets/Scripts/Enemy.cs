@@ -209,6 +209,7 @@ public class Enemy : MonoBehaviour
     public void Hit(int LifePoints)
     {
         m_Life -= LifePoints;
+        print(m_Life);
         if (m_Life <= 0.0f)
             SetDieState();
     }
