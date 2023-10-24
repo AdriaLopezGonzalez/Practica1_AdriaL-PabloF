@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
     public int m_MaxLife = 100;
     Vector3 m_StartPosition;
     Quaternion m_StartRotation;
-    public float m_MaxDistanceToShoot;
+    public float m_MaxDistanceToAttack;
 
     [Header("LifeBar")]
     public Transform m_LifeBarAnchor;
@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, m_MaxDistanceToSeePlayer);
         Gizmos.DrawWireSphere(transform.position, m_MinDistanceToAttack);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, m_MaxDistanceToShoot);
+        Gizmos.DrawWireSphere(transform.position, m_MaxDistanceToAttack);
     }
 
     private void Awake()
@@ -70,6 +70,8 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        print(m_State);
+
         switch (m_State)
         {
             case TState.IDLE:
@@ -136,20 +138,47 @@ public class Enemy : MonoBehaviour
     }
     void UpdatePatrolState()
     {
+        if (HearsPlayer())
+        {
+            m_NavMeshAgent.isStopped = true;
+            SetAlertState();
+        }
+            
         if (!m_NavMeshAgent.hasPath && m_NavMeshAgent.pathStatus == NavMeshPathStatus.PathComplete)
             NextPatrolPosition();
     }
     void UpdateAlertState()
     {
+        transform.Rotate(0.0f, 15.0f * Time.deltaTime, 0.0f, Space.Self);
 
+        if (HearsPlayer() == false)
+        {
+            m_NavMeshAgent.isStopped = false;
+            SetPatrolState();
+        }
+            
+        if (SeesPlayer())
+            SetChaseState();
     }
     void UpdateChaseState()
     {
+        if (CanAttackPlayer())
+        {
+            SetAttackState();
+        }
+        else
+        {
+            //ChasePlayer();
+        }
 
+        if (SeesPlayer() == false)
+            SetAlertState();
     }
     void UpdateAttackState()
     {
 
+        if (PlayerOutRangeToAttack())
+            SetChaseState();
     }
     void UpdateHitState()
     {
@@ -204,7 +233,7 @@ public class Enemy : MonoBehaviour
             Vector3 l_EnemyToPlayer = l_PlayerPosition - l_EnemyPosition;
             l_EnemyToPlayer.y = 0.0f;
             l_EnemyToPlayer.Normalize();
-
+            
             float l_DotAngle = Vector3.Dot(l_EnemyForward, l_EnemyToPlayer);
             if(l_DotAngle <= Mathf.Cos(Mathf.Deg2Rad * m_ConeVisionAngle / 2.0f))
             {
@@ -214,6 +243,22 @@ public class Enemy : MonoBehaviour
             }
         }
         return false;
+    }
+
+    bool CanAttackPlayer()
+    {
+        Vector3 l_PlayerPosition = GameController.GetGameController().m_Player.transform.position;
+        Vector3 l_EnemyPosition = transform.position;
+        float l_DistanceToPlayer = Vector3.Distance(l_PlayerPosition, l_EnemyPosition);
+        return l_DistanceToPlayer < m_MinDistanceToAttack;
+    }
+
+    bool PlayerOutRangeToAttack()
+    {
+        Vector3 l_PlayerPosition = GameController.GetGameController().m_Player.transform.position;
+        Vector3 l_EnemyPosition = transform.position;
+        float l_DistanceToPlayer = Vector3.Distance(l_PlayerPosition, l_EnemyPosition);
+        return l_DistanceToPlayer > m_MaxDistanceToAttack;
     }
 
     public void Hit(int LifePoints)
@@ -244,7 +289,7 @@ public class Enemy : MonoBehaviour
 
     void UpdateLifeBarPosition()
     {
-        Vector3 l_ViewportPosition = GameController.GetGameController().m_Player.m_Camera.WorldToViewportPoint(transform.position + new Vector3(0, 4.0f, 0));
+        Vector3 l_ViewportPosition = GameController.GetGameController().m_Player.m_Camera.WorldToViewportPoint(transform.position + new Vector3(0, 3.5f, 0));
         m_LifeBarBackgroundRectTransform.anchoredPosition = new Vector3(l_ViewportPosition.x * Screen.width, -(Screen.height - l_ViewportPosition.y * Screen.height));
         m_LifeBarBackgroundRectTransform.gameObject.SetActive(l_ViewportPosition.z >= 0.0f);
 
