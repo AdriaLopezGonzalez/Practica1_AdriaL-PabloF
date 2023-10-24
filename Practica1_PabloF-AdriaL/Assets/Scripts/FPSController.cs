@@ -449,7 +449,7 @@ public class FPSController : MonoBehaviour
     public bool CanPickAmmo()
     {
         Debug.Log("not yet implemented picking ammo");
-        if (m_AmmoToReload <= 90)
+        if (m_AmmoToReload < m_MaxAmmoToReload)
             return true;
         return false;
     }
@@ -457,25 +457,18 @@ public class FPSController : MonoBehaviour
     public void AddAmmo(int AmmoCount)
     {
         Debug.Log("not yet implemented adding ammo");
-
-        if (m_AmmoOnWeapon + m_AmmoToReload < m_MaxAmmoOnWeapon)
-            m_AmmoOnWeapon += m_AmmoToReload;
-        else
-            m_AmmoToReload += AmmoCount;
-
         m_AmmoToReload += AmmoCount;
-        if (m_AmmoToReload > 90)
-            m_AmmoToReload = 90;
+        if (m_AmmoToReload > m_MaxAmmoToReload)
+            m_AmmoToReload = m_MaxAmmoToReload;
+
+        UpdateAmmoText();
     }
 
     public bool CanPickHealth()
     {
         Debug.Log("not yet implemented picking health");
-        if (m_Health < m_MaxHealth)
-        {
-            AddHealth(100);
+        if (m_Health < 100)
             return true;
-        }
         return false;
     }
 
@@ -483,16 +476,15 @@ public class FPSController : MonoBehaviour
     {
         Debug.Log("not yet implemented adding health");
         m_Health += HealthCount;
+        if (m_Health > m_MaxHealth)
+            m_Health = m_MaxHealth;
     }
 
     public bool CanPickShield()
     {
         Debug.Log("not yet implemented picking armor");
-        if (m_Shield < m_MaxShield)
-        {
-            AddShield(100);
+        if (m_Shield < 100)
             return true;
-        }
         return false;
     }
 
@@ -500,6 +492,8 @@ public class FPSController : MonoBehaviour
     {
         Debug.Log("not yet implemented adding armor");
         m_Shield += ShieldCount;
+        if (m_Shield > m_MaxShield)
+            m_Shield = m_MaxShield;
     }
 
     private void OnTriggerEnter(UnityEngine.Collider other)
