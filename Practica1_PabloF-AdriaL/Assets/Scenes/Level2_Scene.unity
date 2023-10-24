@@ -12863,7 +12863,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 53
   m_MaxLife: 100
-  m_LifeBarAnchor: {fileID: 722254286}
+  m_LifeBarAnchor: {fileID: 1064689215}
   m_LifeBarBackgroundRectTransform: {fileID: 1488851193}
   m_LifeBarImage: {fileID: 1389442168}
 --- !u!1001 &726066757
@@ -26212,7 +26212,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 140, y: 25}
+  m_SizeDelta: {x: 80, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1488851194
 MonoBehaviour:
