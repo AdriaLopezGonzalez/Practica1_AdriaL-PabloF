@@ -87,6 +87,7 @@ public class Enemy : MonoBehaviour
                 break;
         }
 
+        ShowLifeBar();
         UpdateLifeBarPosition();
     }
     void SetIdleState()
