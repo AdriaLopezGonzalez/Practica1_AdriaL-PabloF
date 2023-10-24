@@ -43,9 +43,10 @@ GameObject:
   - component: {fileID: 5762806192813997602}
   - component: {fileID: 5762806192821721570}
   - component: {fileID: 6189947279139203002}
+  - component: {fileID: 8046890588959423264}
   m_Layer: 0
   m_Name: box_ammo
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,6 +101,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AmmoCount: 90
+--- !u!65 &8046890588959423264
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5762806192814209974}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7238045, y: 0.7124585, z: 1}
+  m_Center: {x: 0.010438919, y: 0.08431178, z: 0}
 --- !u!1 &5762806192814216680
 GameObject:
   m_ObjectHideFlags: 0

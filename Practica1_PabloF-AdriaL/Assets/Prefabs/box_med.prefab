@@ -94,9 +94,10 @@ GameObject:
   - component: {fileID: 8438015590557058503}
   - component: {fileID: 8438015590564218869}
   - component: {fileID: 1892132543270697917}
+  - component: {fileID: 92565484583844374}
   m_Layer: 0
   m_Name: box_med
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,6 +152,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HealthCount: 100
+--- !u!65 &92565484583844374
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8438015590556855767}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7815361, y: 0.72267354, z: 1}
+  m_Center: {x: -0.008131027, y: 0.051982105, z: 0}
 --- !u!1 &8438015590556886607
 GameObject:
   m_ObjectHideFlags: 0
