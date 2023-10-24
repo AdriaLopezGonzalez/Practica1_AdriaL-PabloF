@@ -7,7 +7,7 @@ public class DoorOpeners : MonoBehaviour
     public Animation m_DoorAnimation;
     public AnimationClip m_DoorOpeningAnimationClip;
 
-    void SetDoorOpeningAnimation()
+    void OpenDoor()
     {
         m_DoorAnimation.CrossFade(m_DoorOpeningAnimationClip.name);
     }
@@ -15,6 +15,6 @@ public class DoorOpeners : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
-           SetDoorOpeningAnimation();
+           OpenDoor();
     }
 }
