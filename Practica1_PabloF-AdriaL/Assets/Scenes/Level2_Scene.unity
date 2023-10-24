@@ -6352,7 +6352,7 @@ GameObject:
   - component: {fileID: 308994990}
   - component: {fileID: 308994989}
   - component: {fileID: 308994992}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Helix1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -7248,7 +7248,7 @@ GameObject:
   - component: {fileID: 356036500}
   - component: {fileID: 356036499}
   - component: {fileID: 356036502}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Head
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -17829,7 +17829,7 @@ GameObject:
   - component: {fileID: 989531615}
   - component: {fileID: 989531614}
   - component: {fileID: 989531617}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Helix2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -23611,7 +23611,7 @@ GameObject:
   - component: {fileID: 1309759659}
   - component: {fileID: 1309759658}
   - component: {fileID: 1309759661}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -23909,14 +23909,6 @@ PrefabInstance:
     - target: {fileID: 667646521373167957, guid: 57ec7c196fbb4294097a0e26e57038d8, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 667646521373167957, guid: 57ec7c196fbb4294097a0e26e57038d8, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 667646521633273097, guid: 57ec7c196fbb4294097a0e26e57038d8, type: 3}
-      propertyPath: m_Layer
-      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57ec7c196fbb4294097a0e26e57038d8, type: 3}
