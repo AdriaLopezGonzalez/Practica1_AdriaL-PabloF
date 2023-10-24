@@ -7,7 +7,6 @@ TagManager:
   - ShootingRange
   - EndLevel
   - Enemy
-  - Item
   layers:
   - Default
   - TransparentFX
