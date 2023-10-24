@@ -234,7 +234,7 @@ public class Enemy : MonoBehaviour
 
     void UpdateLifeBarPosition()
     {
-        Vector3 l_ViewportPosition = GameController.GetGameController().m_Player.m_Camera.WorldToViewportPoint(transform.position);
+        Vector3 l_ViewportPosition = GameController.GetGameController().m_Player.m_Camera.WorldToViewportPoint(transform.position + new Vector3(0, 4.0f, 0));
         m_LifeBarBackgroundRectTransform.anchoredPosition = new Vector3(l_ViewportPosition.x * Screen.width, -(Screen.height - l_ViewportPosition.y * Screen.height));
         m_LifeBarBackgroundRectTransform.gameObject.SetActive(l_ViewportPosition.z >= 0.0f);
 
