@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 6189947279139203002}
   m_Layer: 0
   m_Name: box_ammo
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

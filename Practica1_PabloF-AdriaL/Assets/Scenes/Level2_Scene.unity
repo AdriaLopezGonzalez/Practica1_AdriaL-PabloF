@@ -12863,7 +12863,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 53
   m_MaxLife: 100
-  m_LifeBarAnchor: {fileID: 1064689215}
+  m_LifeBarAnchor: {fileID: 722254286}
   m_LifeBarBackgroundRectTransform: {fileID: 1488851193}
   m_LifeBarImage: {fileID: 1389442168}
 --- !u!1001 &726066757
