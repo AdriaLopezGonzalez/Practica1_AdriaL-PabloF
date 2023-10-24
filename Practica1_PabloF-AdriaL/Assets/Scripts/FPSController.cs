@@ -451,16 +451,20 @@ public class FPSController : MonoBehaviour
         Debug.Log("not yet implemented picking ammo");
         if (m_AmmoToReload < m_MaxAmmoToReload)
         {
-            AddAmmo(90);
+            AddAmmo(/*(int)m_MaxAmmoToReload*/10);
             return true;
         }
-        return false;
+        else
+        {
+            return false;
+        }
     }
 
     public void AddAmmo(int AmmoCount)
     {
         Debug.Log("not yet implemented adding ammo");
-        m_AmmoToReload += AmmoCount;
+        //m_AmmoToReload += AmmoCount;
+        AmmoCount += ((int)m_MaxAmmoToReload - (int)m_AmmoToReload);
     }
 
     public bool CanPickHealth()
