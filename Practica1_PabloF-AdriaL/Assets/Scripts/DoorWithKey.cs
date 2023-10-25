@@ -8,12 +8,14 @@ public class DoorWithKey : MonoBehaviour
     public AnimationClip m_DoorOpeningAnimationClip;
     public AnimationClip m_DoorOpenAnimationClip;
     public GameObject m_Key;
+    bool m_DoAnimation = true;
 
     void Update()
     {
-        if(m_Key.activeSelf == false)
+        if(m_Key.activeSelf == false && m_DoAnimation)
         {
             OpenDoor();
+            m_DoAnimation = false;
         }  
     }
 
