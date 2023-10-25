@@ -24,6 +24,7 @@ public class FPSController : MonoBehaviour
     Vector3 m_StartPosition;
     Quaternion m_StartRotation;
     bool m_InputsNotActive = false;
+    public GameObject m_GameOverSign;
 
     [Header("ShootingGallery")]
     public TMP_Text m_PointsShootingRangeText;
@@ -79,6 +80,7 @@ public class FPSController : MonoBehaviour
     public KeyCode m_SprintKeyCode = KeyCode.LeftShift;
     public KeyCode m_EnterKeyCode = KeyCode.Return;
     public KeyCode m_RestartKeyCode = KeyCode.T;
+    public KeyCode m_ExitKeyCode = KeyCode.Escape;
 
     [Header("Input")]
     public KeyCode m_ReloadKeyCode = KeyCode.R;
@@ -260,6 +262,21 @@ public class FPSController : MonoBehaviour
                 }
             }
         }
+
+        if(m_GameOverSign.activeSelf == true)
+        {
+            if (Input.GetKeyDown(m_RestartKeyCode))
+            {
+                m_GameOverSign.SetActive(false);
+                Time.timeScale = 1;
+                m_InputsNotActive = false;
+                GameController.GetGameController().RestartLevel();
+            }
+            else if (Input.GetKeyDown(m_ExitKeyCode))
+            {
+                UnityEditor.EditorApplication.isPlaying = false;
+            }
+        }
     }
 
     bool CanReload()
@@ -432,9 +449,7 @@ public class FPSController : MonoBehaviour
 
         if (m_Health <= 0.0f)
         {
-            m_Health = 0.0f;
-
-            //Implementar pantalla de derrota
+            Kill();
         }
     }
 
@@ -583,7 +598,9 @@ public class FPSController : MonoBehaviour
         m_Health = 0;
         m_HealthText.text = m_Health.ToString("0");
         //it should start after a while
-        GameController.GetGameController().RestartLevel();
+        m_GameOverSign.SetActive(true);
+        Time.timeScale = 0;
+        m_InputsNotActive = true;
     }
 
     IEnumerator ChangeScene()
