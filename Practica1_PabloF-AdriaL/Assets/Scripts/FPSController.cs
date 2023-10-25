@@ -470,7 +470,6 @@ public class FPSController : MonoBehaviour
 
     public void RestartLevel()
     {
-        m_PoolElements = new CPoolElements(25, m_HitParticlePrefab, null);
         m_AmmoOnWeapon = m_MaxAmmoOnWeapon;
         m_AmmoToReload = m_MaxAmmoToReload;
         m_Health = m_MaxHealth;

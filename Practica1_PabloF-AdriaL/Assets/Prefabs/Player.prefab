@@ -97,7 +97,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 503
+    m_Bits: 1527
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -225,7 +225,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   m_HitParticlePrefab: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
-  m_EnemyHitParticlePrefab: {fileID: 0}
+  m_EnemyHitParticlePrefab: {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9, type: 3}
   m_MaxAmmoOnWeapon: 30
   m_MaxAmmoToReload: 90
   m_AmmoText: {fileID: 2369336478621143923}
