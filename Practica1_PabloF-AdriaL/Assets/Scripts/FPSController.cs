@@ -394,7 +394,9 @@ public class FPSController : MonoBehaviour
 
     public void DamageRecieved(float _DamageDealt)
     {
-        if(m_Shield <= 0.0f)
+        print("dentroooooooo");
+
+        if (m_Shield <= 0.0f)
         {
             m_Shield = 0.0f;
             m_Health -= _DamageDealt;

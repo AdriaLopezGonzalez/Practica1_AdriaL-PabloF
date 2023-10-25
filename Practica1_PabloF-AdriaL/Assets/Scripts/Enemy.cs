@@ -33,6 +33,7 @@ public class Enemy : MonoBehaviour
     public float m_MaxDistanceToAttack;
     public float m_TimeToAttack;
     float m_TimerToAttack = 0;
+    public float m_DamageDealt;
 
     [Header("LifeBar")]
     public Transform m_LifeBarAnchor;
@@ -185,6 +186,12 @@ public class Enemy : MonoBehaviour
     }
     void UpdateAttackState()
     {
+        m_TimerToAttack += 1f * Time.deltaTime;
+        if (m_TimerToAttack >= m_TimeToAttack)
+        {
+            AttackPlayer();
+            m_TimerToAttack = 0f;
+        }
 
         if (PlayerOutRangeToAttack())
             SetChaseState();
@@ -277,6 +284,11 @@ public class Enemy : MonoBehaviour
         Vector3 l_EnemyPosition = transform.position;
         float l_DistanceToPlayer = Vector3.Distance(l_PlayerPosition, l_EnemyPosition);
         return l_DistanceToPlayer > m_MaxDistanceToAttack;
+    }
+
+    void AttackPlayer()
+    {
+        GameController.GetGameController().m_Player.GetComponent<FPSController>().DamageRecieved(m_DamageDealt);
     }
 
     public void Hit(int LifePoints)
