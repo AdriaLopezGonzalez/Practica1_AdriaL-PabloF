@@ -36,6 +36,7 @@ public class Enemy : MonoBehaviour
     float m_TimerToAttack = 0;
     public float m_DamageDealt;
     public float m_CanSeeLifeBarRadius;
+    float m_RotatingAngle = 0f;
 
     [Header("LifeBar")]
     public Transform m_LifeBarAnchor;
@@ -159,19 +160,22 @@ public class Enemy : MonoBehaviour
     }
     void UpdateAlertState()
     {
-        transform.Rotate(0.0f, 15.0f * Time.deltaTime, 0.0f, Space.Self);
+        m_RotatingAngle += 30.0f * Time.deltaTime;
 
-        if (HearsPlayer() == false)
-        {
-            m_NavMeshAgent.isStopped = false;
-            SetPatrolState();
-        }
-            
+        transform.Rotate(0.0f, 30.0f * Time.deltaTime, 0.0f, Space.Self);
+
         if (SeesPlayer())
         {
             m_NavMeshAgent.isStopped = false;
             SetChaseState();
         }
+
+        if (m_RotatingAngle >= 360.0f)
+        {
+            m_RotatingAngle = 0f;
+            m_NavMeshAgent.isStopped = false;
+            SetPatrolState();
+        } 
     }
     void UpdateChaseState()
     {
@@ -208,7 +212,14 @@ public class Enemy : MonoBehaviour
     }
     void UpdateHitState()
     {
-
+        if (m_ActualStateOnHit == TState.IDLE || m_ActualStateOnHit == TState.PATROL)
+        {
+            SetAlertState();
+        }
+        else
+        {
+            m_State = m_ActualStateOnHit;
+        }
     }
     void UpdateDieState()
     {
