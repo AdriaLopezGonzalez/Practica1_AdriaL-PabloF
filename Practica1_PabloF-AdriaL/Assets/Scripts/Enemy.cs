@@ -31,6 +31,8 @@ public class Enemy : MonoBehaviour
     Vector3 m_StartPosition;
     Quaternion m_StartRotation;
     public float m_MaxDistanceToAttack;
+    public float m_TimeToAttack;
+    float m_TimerToAttack = 0;
 
     [Header("LifeBar")]
     public Transform m_LifeBarAnchor;
@@ -158,21 +160,28 @@ public class Enemy : MonoBehaviour
         }
             
         if (SeesPlayer())
+        {
+            m_NavMeshAgent.isStopped = false;
             SetChaseState();
+        }
     }
     void UpdateChaseState()
     {
         if (CanAttackPlayer())
         {
+            m_NavMeshAgent.isStopped = true;
             SetAttackState();
         }
         else
         {
-            //ChasePlayer();
+            ChasePlayer();
         }
 
         if (SeesPlayer() == false)
+        {
+            m_NavMeshAgent.isStopped = true;
             SetAlertState();
+        }
     }
     void UpdateAttackState()
     {
@@ -235,7 +244,7 @@ public class Enemy : MonoBehaviour
             l_EnemyToPlayer.Normalize();
             
             float l_DotAngle = Vector3.Dot(l_EnemyForward, l_EnemyToPlayer);
-            if(l_DotAngle <= Mathf.Cos(Mathf.Deg2Rad * m_ConeVisionAngle / 2.0f))
+            if(l_DotAngle >= Mathf.Cos(Mathf.Deg2Rad * m_ConeVisionAngle / 2.0f))
             {
                 Ray l_Ray = new Ray(l_EnemyPosition + Vector3.up * 1.8f, l_EnemyToPlayer);
                 if (Physics.Raycast(l_Ray, l_DistanceToPlayer, m_SeesPlayerLayerMask.value))
@@ -243,6 +252,15 @@ public class Enemy : MonoBehaviour
             }
         }
         return false;
+    }
+
+    void ChasePlayer()
+    {
+        Vector3 l_PlayerPosition = GameController.GetGameController().m_Player.transform.position;
+        Vector3 l_EnemyPosition = transform.position;
+        float l_DistanceToPlayer = Vector3.Distance(l_PlayerPosition, l_EnemyPosition);
+
+        m_NavMeshAgent.SetDestination(l_PlayerPosition);
     }
 
     bool CanAttackPlayer()
