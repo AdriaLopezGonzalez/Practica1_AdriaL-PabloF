@@ -534,6 +534,10 @@ public class FPSController : MonoBehaviour
                 //GameController.GetGameController().GoToLevel2();
             }
         } 
+        if (other.tag == "DeadZone")
+        {
+            Kill();
+        }
     }
 
     private void OnTriggerExit(Collider other)
