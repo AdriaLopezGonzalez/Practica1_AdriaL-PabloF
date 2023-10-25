@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
         DIE
     }
     TState m_State;
+    TState m_ActualStateOnHit;
 
     NavMeshAgent m_NavMeshAgent;
     public float m_MinDistanceToAttack;
@@ -307,6 +308,9 @@ public class Enemy : MonoBehaviour
         print(m_Life);
         if (m_Life <= 0.0f)
             SetDieState();
+
+        m_ActualStateOnHit = m_State;
+        SetHitState();
     }
 
     internal void RestartLevel()
