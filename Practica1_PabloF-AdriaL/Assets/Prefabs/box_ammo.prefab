@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5762806192814207100}
   m_LocalRotation: {x: -1.245e-40, y: -6.1232336e-17, z: 1, w: -6.123234e-17}
-  m_LocalPosition: {x: -0.24413395, y: 0.18753031, z: 0}
+  m_LocalPosition: {x: -0.2441339, y: 0.18753031, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 5762806192813997602}
   - component: {fileID: 6189947279139203002}
   - component: {fileID: 8046890588959423264}
+  - component: {fileID: 128487924}
   m_Layer: 0
   m_Name: box_ammo
   m_TagString: Item
@@ -93,6 +94,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7238045, y: 0.7124585, z: 1}
   m_Center: {x: 0.010438919, y: 0.08431178, z: 0}
+--- !u!95 &128487924
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5762806192814209974}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fcdbda6bfb32b254382b614cc3ac65ff, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5762806192814216680
 GameObject:
   m_ObjectHideFlags: 0
