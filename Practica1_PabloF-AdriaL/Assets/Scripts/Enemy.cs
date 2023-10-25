@@ -189,12 +189,15 @@ public class Enemy : MonoBehaviour
         m_TimerToAttack += 1f * Time.deltaTime;
         if (m_TimerToAttack >= m_TimeToAttack)
         {
-            AttackPlayer();
             m_TimerToAttack = 0f;
+            AttackPlayer();
         }
 
         if (PlayerOutRangeToAttack())
+        {
+            m_TimerToAttack = 0f;
             SetChaseState();
+        }
     }
     void UpdateHitState()
     {

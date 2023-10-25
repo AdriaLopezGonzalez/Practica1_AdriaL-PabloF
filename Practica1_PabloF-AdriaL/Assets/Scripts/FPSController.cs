@@ -394,11 +394,8 @@ public class FPSController : MonoBehaviour
 
     public void DamageRecieved(float _DamageDealt)
     {
-        print("dentroooooooo");
-
-        if (m_Shield <= 0.0f)
+        if (m_Shield <= 0f)
         {
-            m_Shield = 0.0f;
             m_Health -= _DamageDealt;
         }
         else
@@ -407,7 +404,19 @@ public class FPSController : MonoBehaviour
             m_Shield -= (_DamageDealt * 75.0f) / 100.0f;
         }
 
-        if(m_Health <= 0.0f)
+        if(m_Shield <= 0f)
+        {
+            m_Shield = 0f;
+        }
+        if (m_Health <= 0f)
+        {
+            m_Health = 0f;
+        }
+
+        m_HealthText.text = m_Health.ToString("0");
+        m_ShieldText.text = m_Shield.ToString("0");
+
+        if (m_Health <= 0.0f)
         {
             m_Health = 0.0f;
 
@@ -455,7 +464,6 @@ public class FPSController : MonoBehaviour
 
     public bool CanPickAmmo()
     {
-        Debug.Log("not yet implemented picking ammo");
         if (m_AmmoToReload < m_MaxAmmoToReload)
             return true;
         return false;
@@ -463,7 +471,6 @@ public class FPSController : MonoBehaviour
 
     public void AddAmmo(int AmmoCount)
     {
-        Debug.Log("not yet implemented adding ammo");
         m_AmmoToReload += AmmoCount;
         if (m_AmmoToReload > m_MaxAmmoToReload)
             m_AmmoToReload = m_MaxAmmoToReload;
@@ -473,7 +480,6 @@ public class FPSController : MonoBehaviour
 
     public bool CanPickHealth()
     {
-        Debug.Log("not yet implemented picking health");
         if (m_Health < 100)
             return true;
         return false;
@@ -481,15 +487,15 @@ public class FPSController : MonoBehaviour
 
     public void AddHealth(int HealthCount)
     {
-        Debug.Log("not yet implemented adding health");
         m_Health += HealthCount;
         if (m_Health > m_MaxHealth)
             m_Health = m_MaxHealth;
+
+        m_HealthText.text = m_Health.ToString("0");
     }
 
     public bool CanPickShield()
     {
-        Debug.Log("not yet implemented picking armor");
         if (m_Shield < 100)
             return true;
         return false;
@@ -497,10 +503,10 @@ public class FPSController : MonoBehaviour
 
     public void AddShield(int ShieldCount)
     {
-        Debug.Log("not yet implemented adding armor");
         m_Shield += ShieldCount;
         if (m_Shield > m_MaxShield)
             m_Shield = m_MaxShield;
+        m_ShieldText.text = m_Shield.ToString("0");
     }
 
     private void OnTriggerEnter(UnityEngine.Collider other)
@@ -546,6 +552,15 @@ public class FPSController : MonoBehaviour
             }
         }
     }
+
+    void Kill()
+    {
+        m_Health = 0;
+        m_HealthText.text = m_Health.ToString("0");
+        //it should start after a while
+        GameController.GetGameController().RestartLevel();
+    }
+
     IEnumerator ChangeScene()
     {
         FindObjectOfType<FadeOut>().FadeingOut();
