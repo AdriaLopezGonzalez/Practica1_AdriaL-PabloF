@@ -13218,6 +13218,7 @@ MonoBehaviour:
   m_MaxDistanceToAttack: 5.5
   m_TimeToAttack: 4
   m_DamageDealt: 30
+  m_CanSeeLifeBarRadius: 13
   m_LifeBarAnchor: {fileID: 722254286}
   m_LifeBarBackgroundRectTransform: {fileID: 1488851193}
   m_LifeBarImage: {fileID: 1389442168}
