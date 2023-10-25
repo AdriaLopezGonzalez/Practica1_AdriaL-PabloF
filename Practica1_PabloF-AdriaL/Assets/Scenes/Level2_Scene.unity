@@ -13177,7 +13177,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 722254285}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1.25
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -13216,9 +13216,13 @@ MonoBehaviour:
     m_Bits: 277
   m_MaxLife: 100
   m_MaxDistanceToAttack: 5.5
-  m_TimeToAttack: 4
+  m_TimeToAttack: 3
   m_DamageDealt: 30
   m_CanSeeLifeBarRadius: 13
+  m_DropedItem:
+  - {fileID: 5762806192814209974, guid: bba7dbbf21c93bb4f9eecb96db4dfb3f, type: 3}
+  - {fileID: 8438015590556855767, guid: c92ec8c4e3fb79b4c9cc870a51715654, type: 3}
+  - {fileID: 3470980025984475900, guid: e8bbb9ecdd0c44647b2873eedbbba9d5, type: 3}
   m_LifeBarAnchor: {fileID: 722254286}
   m_LifeBarBackgroundRectTransform: {fileID: 1488851193}
   m_LifeBarImage: {fileID: 1389442168}
@@ -24072,6 +24076,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 743342600984773693, guid: 57ec7c196fbb4294097a0e26e57038d8, type: 3}
+      propertyPath: m_EnemyHitParticlePrefab
+      value: 
+      objectReference: {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57ec7c196fbb4294097a0e26e57038d8, type: 3}
 --- !u!1001 &1323974857

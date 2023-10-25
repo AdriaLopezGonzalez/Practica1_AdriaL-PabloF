@@ -59,6 +59,8 @@ public class FPSController : MonoBehaviour
     public LayerMask m_LayerMask;
     public LayerMask m_LayerMaskTargets;
     public GameObject m_HitParticlePrefab;
+    public GameObject m_EnemyHitParticlePrefab;
+    CPoolElements m_PoolElements;
 
     public float m_MaxAmmoOnWeapon;
     float m_AmmoOnWeapon;
@@ -106,6 +108,8 @@ public class FPSController : MonoBehaviour
     }
     void Start()
     {
+        m_PoolElements = new CPoolElements(25, m_HitParticlePrefab, null);
+
         Cursor.lockState = CursorLockMode.Locked;
 
         SetIdleWeaponAnimation();
@@ -309,6 +313,7 @@ public class FPSController : MonoBehaviour
             if (l_RaycastHit.collider.tag == "Enemy")
             {
                 l_RaycastHit.collider.GetComponent<HitCollider>().Hit();
+                CreateShootEnemyHitParticles(l_RaycastHit.point, l_RaycastHit.normal);
             }
             else
                 CreateShootHitParticles(l_RaycastHit.point, l_RaycastHit.normal);
@@ -333,7 +338,15 @@ public class FPSController : MonoBehaviour
 
     void CreateShootHitParticles(Vector3 Position, Vector3 Normal)
     {
-        GameObject l_HitParticles = GameObject.Instantiate(m_HitParticlePrefab, GameController.GetGameController().m_DestroyObjects.transform);
+        //GameObject l_HitParticles = GameObject.Instantiate(m_HitParticlePrefab, GameController.GetGameController().m_DestroyObjects.transform);
+        GameObject l_HitParticles = m_PoolElements.GetNextElement();
+        l_HitParticles.transform.position = Position;
+        l_HitParticles.transform.rotation = Quaternion.LookRotation(Normal);
+    }
+
+    void CreateShootEnemyHitParticles(Vector3 Position, Vector3 Normal)
+    {
+        GameObject l_HitParticles = GameObject.Instantiate(m_EnemyHitParticlePrefab, GameController.GetGameController().m_DestroyObjects.transform);
         l_HitParticles.transform.position = Position;
         l_HitParticles.transform.rotation = Quaternion.LookRotation(Normal);
     }

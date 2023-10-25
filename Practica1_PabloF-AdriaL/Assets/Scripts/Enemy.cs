@@ -37,6 +37,8 @@ public class Enemy : MonoBehaviour
     public float m_DamageDealt;
     public float m_CanSeeLifeBarRadius;
     float m_RotatingAngle = 0f;
+    public List<GameObject> m_DropedItem;
+    float m_RandomNumber;
 
     [Header("LifeBar")]
     public Transform m_LifeBarAnchor;
@@ -140,7 +142,6 @@ public class Enemy : MonoBehaviour
     void SetDieState()
     {
         m_State = TState.DIE;
-        gameObject.SetActive(false);
     }
 
     void UpdateIdleState()
@@ -223,7 +224,9 @@ public class Enemy : MonoBehaviour
     }
     void UpdateDieState()
     {
-
+        m_RandomNumber = UnityEngine.Random.Range(0, m_DropedItem.Count);
+        Instantiate(m_DropedItem[(int)m_RandomNumber], transform.position, transform.rotation);
+        gameObject.SetActive(false);
     }
 
     void SetNextChasePosition()
@@ -274,7 +277,6 @@ public class Enemy : MonoBehaviour
             float l_DotAngle = Vector3.Dot(l_EnemyForward, l_EnemyToPlayer);
             if(l_DotAngle >= Mathf.Cos(Mathf.Deg2Rad * m_ConeVisionAngle / 2.0f))
             {
-                Debug.DrawRay(transform.position, l_EnemyToPlayer * 20, Color.green);
                 Ray l_Ray = new Ray(l_EnemyPosition + Vector3.up * 2f, l_EnemyToPlayer);
                 if (Physics.Raycast(l_Ray, l_DistanceToPlayer, m_SeesPlayerLayerMask.value))
                     return true;
@@ -316,7 +318,6 @@ public class Enemy : MonoBehaviour
     public void Hit(int LifePoints)
     {
         m_Life -= LifePoints;
-        print(m_Life);
         if (m_Life <= 0.0f)
             SetDieState();
 

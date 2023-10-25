@@ -50,10 +50,6 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.U))
             RestartLevel();
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            GoToLevel1();
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            GoToLevel2();
     }
 
     public void GoToLevel1()
