@@ -20020,7 +20020,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &1120353802
 Light:
   m_ObjectHideFlags: 0
@@ -20028,7 +20028,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1120353801}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
@@ -20067,10 +20067,10 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 2
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1024
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -22318,7 +22318,7 @@ GameObject:
   - component: {fileID: 1245461223}
   m_Layer: 9
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: DeadZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23457,7 +23457,7 @@ GameObject:
   - component: {fileID: 1296550996}
   - component: {fileID: 1296550995}
   - component: {fileID: 1296550994}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24021,7 +24021,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 667646521010141248, guid: 57ec7c196fbb4294097a0e26e57038d8, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 503
+      value: 1527
       objectReference: {fileID: 0}
     - target: {fileID: 667646521373167956, guid: 57ec7c196fbb4294097a0e26e57038d8, type: 3}
       propertyPath: m_RootOrder
@@ -28280,7 +28280,7 @@ GameObject:
   - component: {fileID: 1606461105}
   m_Layer: 9
   m_Name: DeadZone
-  m_TagString: Untagged
+  m_TagString: DeadZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
