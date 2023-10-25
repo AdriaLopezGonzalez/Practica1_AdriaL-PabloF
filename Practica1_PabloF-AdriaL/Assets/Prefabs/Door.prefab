@@ -47,8 +47,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6754456, y: 2.9387207, z: 5.9878845}
-  m_Center: {x: 0.15187073, y: 0.96936035, z: 0.08974457}
+  m_Size: {x: 3.8362427, y: 2.9387207, z: 5.9878845}
+  m_Center: {x: 0.39050293, y: 0.96936035, z: 0.08974457}
 --- !u!111 &6607846563006172195
 Animation:
   m_ObjectHideFlags: 0
@@ -61,6 +61,8 @@ Animation:
   m_Animation: {fileID: 0}
   m_Animations:
   - {fileID: 7400000, guid: b77081ca2793a114292702f5ab531564, type: 2}
+  - {fileID: 7400000, guid: dd30215c6ee165b448e643ae79587894, type: 2}
+  - {fileID: 7400000, guid: 37964929bb9d5574da2b55a5b29e90e0, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -79,6 +81,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_DoorAnimation: {fileID: 6607846563006172195}
   m_DoorOpeningAnimationClip: {fileID: 7400000, guid: b77081ca2793a114292702f5ab531564, type: 2}
+  m_DoorOpenAnimationClip: {fileID: 7400000, guid: dd30215c6ee165b448e643ae79587894, type: 2}
+  m_DoorClosingAnimationClip: {fileID: 7400000, guid: 37964929bb9d5574da2b55a5b29e90e0, type: 2}
 --- !u!1001 &8829338699827623097
 PrefabInstance:
   m_ObjectHideFlags: 0
