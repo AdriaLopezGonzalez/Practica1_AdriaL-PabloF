@@ -260,7 +260,7 @@ public class FPSController : MonoBehaviour
 
     bool CanReload()
     {
-        if (m_AmmoToReload <= 0)
+        if (m_AmmoToReload <= 0 || m_AmmoOnWeapon >= m_MaxAmmoOnWeapon)
             return false;
         return true;
     }
@@ -280,7 +280,7 @@ public class FPSController : MonoBehaviour
         if (m_AmmoToReload < 0)
             m_AmmoToReload = 0;
 
-        UpdateAmmoText();
+        UpdatePlayerText();
         SetReloadWeaponAnimation();
     }
 
@@ -298,7 +298,7 @@ public class FPSController : MonoBehaviour
     {
         m_AmmoOnWeapon -= 1;
 
-        UpdateAmmoText();
+        UpdatePlayerText();
 
         SetShootWeaponAnimation();
 
@@ -324,9 +324,11 @@ public class FPSController : MonoBehaviour
         }
     }
 
-    void UpdateAmmoText()
+    void UpdatePlayerText()
     {
         m_AmmoText.text = m_AmmoOnWeapon.ToString() + "/" + m_AmmoToReload.ToString();
+        m_HealthText.text = m_Health.ToString("0");
+        m_ShieldText.text = m_Shield.ToString("0");
     }
 
     void CreateShootHitParticles(Vector3 Position, Vector3 Normal)
@@ -413,8 +415,7 @@ public class FPSController : MonoBehaviour
             m_Health = 0f;
         }
 
-        m_HealthText.text = m_Health.ToString("0");
-        m_ShieldText.text = m_Shield.ToString("0");
+        UpdatePlayerText();
 
         if (m_Health <= 0.0f)
         {
@@ -441,12 +442,18 @@ public class FPSController : MonoBehaviour
 
     public void RestartLevel()
     {
+        m_AmmoOnWeapon = m_MaxAmmoOnWeapon;
+        m_AmmoToReload = m_MaxAmmoToReload;
+        m_Health = m_MaxHealth;
+        m_Shield = m_MaxShield;
+        UpdatePlayerText();
         m_CharacterController.enabled = false;
         transform.position = m_StartPosition;
         transform.rotation = m_StartRotation;
         m_Yaw = transform.rotation.eulerAngles.y;
         m_Pitch = 0.0f;
         m_CharacterController.enabled = true;
+
     }
 
     void SetStartPosition(Transform StartTransform)
@@ -475,7 +482,7 @@ public class FPSController : MonoBehaviour
         if (m_AmmoToReload > m_MaxAmmoToReload)
             m_AmmoToReload = m_MaxAmmoToReload;
 
-        UpdateAmmoText();
+        UpdatePlayerText();
     }
 
     public bool CanPickHealth()
@@ -491,7 +498,7 @@ public class FPSController : MonoBehaviour
         if (m_Health > m_MaxHealth)
             m_Health = m_MaxHealth;
 
-        m_HealthText.text = m_Health.ToString("0");
+        UpdatePlayerText();
     }
 
     public bool CanPickShield()
@@ -506,7 +513,8 @@ public class FPSController : MonoBehaviour
         m_Shield += ShieldCount;
         if (m_Shield > m_MaxShield)
             m_Shield = m_MaxShield;
-        m_ShieldText.text = m_Shield.ToString("0");
+
+        UpdatePlayerText();
     }
 
     private void OnTriggerEnter(UnityEngine.Collider other)
